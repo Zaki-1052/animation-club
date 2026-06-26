@@ -1,0 +1,259 @@
+/* themes/forest.css — Inspired by ref3: Dark enchanted forest / fantasy portfolio */
+
+[data-theme="forest"] {
+  /* Colors — dark mode with forest greens and gold accents */
+  --c-primary: #E8E0D4;
+  --c-secondary: #B0A898;
+  --c-secondary-dark: #C4BAA8;
+  --c-muted: #7A7268;
+  --c-muted-2: #8A8278;
+  --c-muted-3: #6A6258;
+  --c-accent: #C9A84C;
+  --c-accent-2: #6BAF82;
+  --c-green: #6BAF82;
+  --c-white: #E8E0D4;
+  --c-on-dark: #E8E0D4;
+
+  /* Backgrounds — deep dark greens */
+  --bg-page: #0D1F15;
+  --bg-page-end: #0A1A10;
+  --bg-card: rgba(20,42,28,.85);
+  --bg-card-translucent: rgba(20,42,28,.6);
+  --bg-nav: rgba(13,31,21,.92);
+  --bg-mobile-menu: rgba(13,31,21,.96);
+  --bg-input: rgba(30,55,38,.6);
+  --bg-footer: rgba(13,31,21,.8);
+  --bg-lightbox: rgba(5,12,8,.75);
+
+  /* Gradients — muted, atmospheric */
+  --holo: linear-gradient(115deg,#1a3a2a 0%,#2d5a3d 25%,#c9a84c 50%,#2d5a3d 75%,#1a3a2a 100%);
+  --g-pink: linear-gradient(135deg,#6B4A5A,#8A6478);
+  --g-blue: linear-gradient(135deg,#2A5A6B,#3A7A8B);
+  --g-mint: linear-gradient(135deg,#2D5A3D,#3D7A4D);
+  --g-lav: linear-gradient(135deg,#4A3A6B,#6A5A8B);
+  --g-coral: linear-gradient(135deg,#8A5A4A,#AA7A6A);
+  --g-gold: linear-gradient(135deg,#8A7A2A,#C9A84C);
+  --g-holo: linear-gradient(135deg,#2D5A3D,#C9A84C,#4A3A6B);
+  --g-holo2: linear-gradient(135deg,#1a3a2a,#8A7A2A,#2A5A6B);
+
+  --hero-gradient: linear-gradient(115deg,#C9A84C,#6BAF82,#4A8A9B,#8A6478);
+
+  /* Typography — dramatic serif */
+  --font-display: 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-body: 'Quicksand', sans-serif;
+  --font-logo: 'Cinzel Decorative', 'Cinzel', serif;
+
+  /* Shapes */
+  --radius-card: 12px;
+  --radius-card-lg: 16px;
+
+  /* Shadows — dark, with subtle glow */
+  --shadow-card: 0 2px 12px rgba(0,0,0,.3), inset 0 1px 0 rgba(201,168,76,.08);
+  --shadow-card-hover: 0 12px 40px rgba(0,0,0,.4), 0 0 20px rgba(201,168,76,.1) !important;
+  --shadow-card-hover-sm: 0 8px 30px rgba(0,0,0,.35), 0 0 15px rgba(201,168,76,.08) !important;
+  --shadow-elevated: 0 6px 24px rgba(0,0,0,.35);
+  --shadow-hero: 0 20px 60px rgba(0,0,0,.5), 0 0 30px rgba(107,175,130,.15);
+  --shadow-btn: 0 4px 16px rgba(0,0,0,.3), 0 0 12px rgba(201,168,76,.15);
+  --shadow-btn-hover: 0 8px 24px rgba(0,0,0,.4), 0 0 20px rgba(201,168,76,.25);
+
+  /* Ambient — firefly-like golden dots */
+  --ambient-1: rgba(201,168,76,.25);
+  --ambient-2: rgba(107,175,130,.2);
+  --ambient-3: rgba(138,100,120,.2);
+  --ambient-4: rgba(74,138,155,.15);
+  --sparkle-1: #C9A84C;
+  --sparkle-2: #6BAF82;
+  --sparkle-3: #8A6478;
+  --sparkle-4: #C9A84C;
+
+  /* Borders */
+  --border-nav: 1px solid rgba(201,168,76,.15);
+  --border-section: 1px solid rgba(201,168,76,.1);
+  --border-input: 1px solid rgba(201,168,76,.2);
+  --nav-accent-height: 2px;
+
+  --body-pattern: none;
+}
+
+/* Body dark gradient with forest atmosphere */
+[data-theme="forest"] body {
+  background: linear-gradient(180deg, #0D1F15 0%, #0A1A10 40%, #0F2518 80%, #0D1F15 100%) !important;
+}
+
+/* Subtle forest canopy texture via gradient */
+[data-theme="forest"] #root {
+  background: linear-gradient(180deg,
+    rgba(13,31,21,1) 0%,
+    rgba(10,26,16,1) 60%) !important;
+}
+
+/* Nav with dark glass effect */
+[data-theme="forest"] #root > div:nth-child(2) {
+  border-bottom-color: rgba(201,168,76,.12) !important;
+}
+
+/* Gold accent line on nav */
+[data-theme="forest"] #root > div:nth-child(2) > div:first-child {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(201,168,76,.4) 20%,
+    #C9A84C 50%,
+    rgba(201,168,76,.4) 80%,
+    transparent 100%
+  ) !important;
+  height: 1px !important;
+}
+
+/* Glowing card borders on hover */
+[data-theme="forest"] .card-hover {
+  border: 1px solid rgba(201,168,76,.1) !important;
+  transition: transform .3s, box-shadow .3s, border-color .3s !important;
+}
+[data-theme="forest"] .card-hover:hover {
+  border-color: rgba(201,168,76,.25) !important;
+}
+
+[data-theme="forest"] .card-hover-sm {
+  border: 1px solid rgba(107,175,130,.1) !important;
+}
+[data-theme="forest"] .card-hover-sm:hover {
+  border-color: rgba(107,175,130,.2) !important;
+}
+
+/* Dramatic heading style */
+[data-theme="forest"] h1,
+[data-theme="forest"] h2 {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, serif !important;
+  letter-spacing: .04em !important;
+}
+
+/* Firefly-style sparkles — slower, more golden */
+[data-theme="forest"] .twinkle {
+  font-size: 10px !important;
+  filter: blur(0.5px);
+}
+
+/* Vine divider above footer */
+[data-theme="forest"] footer::before {
+  content: '─── ✧ ── ✦ ── ✧ ── ✦ ── ✧ ── ✦ ── ✧ ───';
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(201,168,76,.3);
+  padding: 12px 0;
+}
+
+/* Timeline glow */
+[data-theme="forest"] #timeline-list {
+  border-image: linear-gradient(to bottom,
+    rgba(201,168,76,.4),
+    rgba(107,175,130,.3),
+    rgba(201,168,76,.4)
+  ) 1 !important;
+}
+
+/* Button glow on hover */
+[data-theme="forest"] .btn-primary {
+  background: linear-gradient(135deg, rgba(201,168,76,.3), rgba(107,175,130,.3)) !important;
+  border: 1px solid rgba(201,168,76,.3) !important;
+  color: var(--c-primary) !important;
+}
+[data-theme="forest"] .btn-primary:hover {
+  border-color: rgba(201,168,76,.5) !important;
+  box-shadow: 0 0 20px rgba(201,168,76,.2), var(--shadow-btn-hover) !important;
+}
+
+[data-theme="forest"] .btn-outline {
+  background: transparent !important;
+  border: 1px solid rgba(232,224,212,.3) !important;
+  color: var(--c-primary) !important;
+}
+[data-theme="forest"] .btn-outline:hover {
+  background: rgba(232,224,212,.1) !important;
+  border-color: rgba(232,224,212,.5) !important;
+  color: var(--c-primary) !important;
+}
+
+/* Follow button dark adaptation */
+[data-theme="forest"] .follow-btn {
+  background: linear-gradient(135deg, rgba(201,168,76,.2), rgba(107,175,130,.2)) !important;
+  border-color: rgba(201,168,76,.2) !important;
+}
+
+/* Input fields dark */
+[data-theme="forest"] .input-field {
+  background: rgba(20,42,28,.6) !important;
+  color: var(--c-primary) !important;
+  border-color: rgba(201,168,76,.15) !important;
+}
+[data-theme="forest"] .input-field:focus {
+  border-color: rgba(201,168,76,.4) !important;
+  box-shadow: 0 0 0 4px rgba(201,168,76,.08) !important;
+}
+[data-theme="forest"] .input-field::placeholder {
+  color: rgba(176,168,152,.4);
+}
+[data-theme="forest"] select.input-field option {
+  background: #142A1C;
+  color: #E8E0D4;
+}
+
+/* Lightbox dark */
+[data-theme="forest"] .lightbox-overlay > div {
+  background: rgba(20,42,28,.95) !important;
+  border: 1px solid rgba(201,168,76,.15) !important;
+}
+
+/* Mobile menu dark */
+[data-theme="forest"] .mobile-link:hover {
+  background: rgba(201,168,76,.08) !important;
+}
+[data-theme="forest"] .mobile-link.active {
+  background: rgba(201,168,76,.12) !important;
+}
+
+/* Active nav indicator gold */
+[data-theme="forest"] .navlink.active::after {
+  background: linear-gradient(90deg, #C9A84C, #6BAF82) !important;
+}
+
+/* Hero image frame glow */
+[data-theme="forest"] .hero-grid > div:last-child > div:last-child {
+  border-color: rgba(201,168,76,.15) !important;
+  background: rgba(20,42,28,.6) !important;
+}
+
+/* Membership badge dark */
+[data-theme="forest"] .hero-grid > div:first-child > div:last-child {
+  background: rgba(20,42,28,.8) !important;
+  border-color: rgba(201,168,76,.2) !important;
+}
+
+/* Theme switcher dark */
+[data-theme="forest"] #theme-switcher {
+  background: rgba(20,42,28,.92) !important;
+  border-color: rgba(201,168,76,.15) !important;
+}
+[data-theme="forest"] #theme-label {
+  color: #E8E0D4 !important;
+}
+[data-theme="forest"] #theme-toggle {
+  color: #E8E0D4 !important;
+}
+
+/* SVG icons white */
+[data-theme="forest"] .follow-btn svg,
+[data-theme="forest"] .hamburger-btn svg,
+[data-theme="forest"] .footer-social-link svg {
+  color: var(--c-primary) !important;
+}
+
+/* Footer social links dark */
+[data-theme="forest"] .footer-social-link {
+  background: rgba(20,42,28,.6) !important;
+  border: 1px solid rgba(201,168,76,.1);
+}
+[data-theme="forest"] .footer-social-link:hover {
+  background: rgba(201,168,76,.15) !important;
+}

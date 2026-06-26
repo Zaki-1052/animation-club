@@ -1,0 +1,235 @@
+/* themes/scrapbook.css — Inspired by ref1: Crafty scrapbook aesthetic */
+
+[data-theme="scrapbook"] {
+  /* Colors */
+  --c-primary: #8B2252;
+  --c-secondary: #7A5C61;
+  --c-secondary-dark: #6B3A4A;
+  --c-muted: #B89A9E;
+  --c-muted-2: #A68A8E;
+  --c-muted-3: #C7AAAE;
+  --c-accent: #E8466A;
+  --c-accent-2: #6DAF7B;
+  --c-green: #6DAF7B;
+  --c-white: #fff;
+  --c-on-dark: #FFF5F7;
+
+  /* Backgrounds */
+  --bg-page: #FDF0F0;
+  --bg-page-end: #FFF5F3;
+  --bg-card: #FFFAF8;
+  --bg-card-translucent: rgba(255,250,248,.85);
+  --bg-nav: rgba(253,240,240,.92);
+  --bg-mobile-menu: rgba(253,240,240,.96);
+  --bg-input: #FFF0ED;
+  --bg-footer: rgba(253,240,240,.7);
+  --bg-lightbox: rgba(139,34,82,.45);
+
+  /* Gradients */
+  --holo: linear-gradient(115deg,#F4C2C2 0%,#FADBD8 20%,#D5F5E3 40%,#FCF3CF 60%,#F4C2C2 80%,#FADBD8 100%);
+  --g-pink: linear-gradient(135deg,#E8788A,#F4C2C2);
+  --g-blue: linear-gradient(135deg,#82C4B5,#B5E8D5);
+  --g-mint: linear-gradient(135deg,#8FBC8F,#C8E6C9);
+  --g-lav: linear-gradient(135deg,#D4A5C8,#EAD1E8);
+  --g-coral: linear-gradient(135deg,#E88B6E,#F5C4B8);
+  --g-gold: linear-gradient(135deg,#E8C547,#FFF3BF);
+  --g-holo: linear-gradient(135deg,#F4C2C2,#D5F5E3,#FCF3CF);
+  --g-holo2: linear-gradient(135deg,#B5E8D5,#F4C2C2,#D4A5C8);
+
+  --hero-gradient: linear-gradient(115deg,#E8466A,#D4689A,#6DAF7B,#E8C547);
+
+  /* Typography */
+  --font-display: 'Patrick Hand', cursive;
+  --font-body: 'Patrick Hand', cursive;
+  --font-logo: 'Patrick Hand', cursive;
+
+  /* Shapes */
+  --radius-card: 14px;
+  --radius-card-lg: 18px;
+
+  /* Shadows */
+  --shadow-card: 2px 3px 0 rgba(139,34,82,.12), 0 1px 4px rgba(139,34,82,.08);
+  --shadow-card-hover: 4px 6px 0 rgba(139,34,82,.18), 0 12px 30px rgba(139,34,82,.12) !important;
+  --shadow-card-hover-sm: 3px 5px 0 rgba(139,34,82,.15), 0 8px 20px rgba(139,34,82,.1) !important;
+  --shadow-elevated: 2px 4px 0 rgba(139,34,82,.1), 0 8px 20px rgba(139,34,82,.08);
+  --shadow-hero: 4px 6px 0 rgba(139,34,82,.15), 0 20px 50px rgba(232,120,138,.25);
+  --shadow-btn: 2px 3px 0 rgba(139,34,82,.15), 0 6px 16px rgba(232,120,138,.25);
+  --shadow-btn-hover: 3px 5px 0 rgba(139,34,82,.2), 0 10px 24px rgba(232,120,138,.35);
+
+  /* Ambient */
+  --ambient-1: #F4C2C2;
+  --ambient-2: #D5F5E3;
+  --ambient-3: #FCF3CF;
+  --ambient-4: #EAD1E8;
+  --sparkle-1: #E8466A;
+  --sparkle-2: #6DAF7B;
+  --sparkle-3: #D4689A;
+  --sparkle-4: #E8C547;
+
+  /* Borders */
+  --border-nav: 2px dashed rgba(232,70,106,.25);
+  --border-section: 2px dashed rgba(232,70,106,.15);
+  --border-input: 2px dashed rgba(232,120,138,.3);
+  --nav-accent-height: 6px;
+
+  /* Decorative */
+  --body-pattern:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 19px,
+      rgba(232,120,138,.06) 19px,
+      rgba(232,120,138,.06) 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 19px,
+      rgba(232,120,138,.06) 19px,
+      rgba(232,120,138,.06) 20px
+    );
+}
+
+/* Gingham pattern on nav */
+[data-theme="scrapbook"] #root > div:first-child + div {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(244,194,194,.15),
+      rgba(244,194,194,.15) 10px,
+      transparent 10px,
+      transparent 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(244,194,194,.15),
+      rgba(244,194,194,.15) 10px,
+      transparent 10px,
+      transparent 20px
+    ) !important;
+}
+
+/* Scalloped border on nav bottom using radial gradient */
+[data-theme="scrapbook"] #root > div:nth-child(2)::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: radial-gradient(circle at 10px 0, transparent 8px, var(--bg-nav) 8px, var(--bg-nav) 10px, transparent 10px);
+  background-size: 20px 16px;
+  background-position: 0 0;
+  z-index: 1;
+}
+
+/* Washi tape accent on section headings */
+[data-theme="scrapbook"] .reveal h2::before {
+  content: '';
+  display: inline-block;
+  width: 60px;
+  height: 20px;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(232,70,106,.15),
+    rgba(232,70,106,.15) 4px,
+    rgba(109,175,123,.12) 4px,
+    rgba(109,175,123,.12) 8px
+  );
+  margin-right: 12px;
+  vertical-align: middle;
+  border-radius: 2px;
+  transform: rotate(-2deg);
+}
+
+/* Paper-like card texture */
+[data-theme="scrapbook"] .card-hover,
+[data-theme="scrapbook"] .card-hover-sm {
+  border: 1px dashed rgba(232,120,138,.25) !important;
+}
+
+/* Slightly rotated cards for casual scrapbook feel */
+[data-theme="scrapbook"] .card-hover:nth-child(odd) {
+  transform: rotate(-0.5deg);
+}
+[data-theme="scrapbook"] .card-hover:nth-child(even) {
+  transform: rotate(0.5deg);
+}
+[data-theme="scrapbook"] .card-hover:hover {
+  transform: translateY(-6px) rotate(0deg) !important;
+}
+
+/* Sticker-style nav cards */
+[data-theme="scrapbook"] .card-hover-sm {
+  border: 2px solid rgba(232,120,138,.2) !important;
+  background-image:
+    radial-gradient(circle at 95% 95%, rgba(232,120,138,.08) 0%, transparent 50%) !important;
+}
+
+/* Pencil cursor for buttons */
+[data-theme="scrapbook"] .btn-primary,
+[data-theme="scrapbook"] .btn-outline {
+  border-style: dashed !important;
+  letter-spacing: .02em;
+}
+
+/* Tape strip on hero image */
+[data-theme="scrapbook"] .hero-grid > div:last-child > div:last-child::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 80px;
+  height: 24px;
+  background: rgba(109,175,123,.35);
+  border-radius: 2px;
+  z-index: 10;
+}
+
+/* Decorative corner dots on footer */
+[data-theme="scrapbook"] footer::before {
+  content: '✂ · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·';
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(232,70,106,.3);
+  padding: 8px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Timeline dots become hearts */
+[data-theme="scrapbook"] #timeline-list {
+  border-left-style: dashed !important;
+  border-image: none !important;
+  border-left-color: rgba(232,120,138,.4) !important;
+}
+
+/* Theme switcher adapts */
+[data-theme="scrapbook"] #theme-switcher {
+  background: rgba(253,240,240,.92) !important;
+  border: 2px dashed rgba(232,120,138,.25) !important;
+  border-radius: 14px !important;
+}
+
+/* Sparkles become craft symbols */
+[data-theme="scrapbook"] .twinkle {
+  font-family: serif !important;
+}
+
+/* Input fields */
+[data-theme="scrapbook"] .input-field {
+  border-style: dashed !important;
+}
+
+[data-theme="scrapbook"] .input-field:focus {
+  border-color: var(--c-accent) !important;
+  box-shadow: 0 0 0 4px rgba(232,70,106,.1) !important;
+}
+
+/* Lightbox */
+[data-theme="scrapbook"] .lightbox-overlay > div {
+  border: 3px dashed rgba(232,120,138,.3) !important;
+}
