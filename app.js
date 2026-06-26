@@ -162,7 +162,7 @@
         + '<span style="position:absolute;top:12px;right:12px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.85);font:600 10px/1 ui-monospace,monospace;letter-spacing:.08em;color:#1E3A5F">' + f.dur + '</span>'
         + '</div>'
         + '<div style="padding:14px 16px 16px">'
-        + '<div style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:17px;color:#1E3A5F">' + f.title + '</div>'
+        + '<div style="font-family:\'Quicksand\',sans-serif;font-weight:600;font-size:17px;color:#1E3A5F">' + f.title + '</div>'
         + '<div style="font-size:12px;color:#8B95A1;margin-top:3px">' + f.meta + '</div>'
         + '</div></button>';
     }).join('');
@@ -175,7 +175,7 @@
         + '<span style="position:absolute;bottom:10px;left:12px;font:600 9px/1 ui-monospace,monospace;letter-spacing:.1em;color:rgba(30,58,95,.55);text-transform:uppercase">placeholder</span>'
         + '</div>'
         + '<div style="padding:11px 13px">'
-        + '<div style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:14px;color:#1E3A5F">' + art.title + '</div>'
+        + '<div style="font-family:\'Quicksand\',sans-serif;font-weight:600;font-size:14px;color:#1E3A5F">' + art.title + '</div>'
         + '<div style="font-size:11px;color:#8B95A1;margin-top:2px">' + art.meta + '</div>'
         + '</div></button>';
     }).join('');
@@ -186,7 +186,7 @@
       return '<button onclick="window.__go(\'' + nc.key + '\')" style="position:relative;text-align:left;background:#fff;border:none;border-radius:18px;padding:22px;cursor:pointer;overflow:hidden;box-shadow:0 1px 3px rgba(30,58,95,.08)" class="card-hover-sm">'
         + '<span style="position:absolute;top:0;left:0;right:0;height:5px;background:' + nc.bg + '"></span>'
         + '<span style="display:inline-flex;width:46px;height:46px;border-radius:14px;background:' + nc.bg + ';align-items:center;justify-content:center;font-size:22px;margin-bottom:14px">' + nc.glyph + '</span>'
-        + '<div style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:19px;color:#1E3A5F;margin-bottom:6px">' + nc.title + '</div>'
+        + '<div style="font-family:\'Quicksand\',sans-serif;font-weight:600;font-size:19px;color:#1E3A5F;margin-bottom:6px">' + nc.title + '</div>'
         + '<div style="font-size:13px;color:#5A6C7D;line-height:1.55">' + nc.desc + '</div>'
         + '<div style="margin-top:14px;font:600 11px/1 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#7FB4D9">' + nc.label + ' →</div>'
         + '</button>';
@@ -198,7 +198,7 @@
       return '<div style="position:relative;margin-bottom:32px">'
         + '<span style="position:absolute;left:-44px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--holo);box-shadow:0 0 0 4px #fff,0 2px 8px rgba(30,58,95,.18)"></span>'
         + '<div style="font:600 12px/1 ui-monospace,monospace;letter-spacing:.14em;color:#7FB4D9;margin-bottom:6px">' + t.year + '</div>'
-        + '<div style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:20px;color:#1E3A5F;margin-bottom:6px">' + t.title + '</div>'
+        + '<div style="font-family:\'Quicksand\',sans-serif;font-weight:600;font-size:20px;color:#1E3A5F;margin-bottom:6px">' + t.title + '</div>'
         + '<p style="font-size:14px;color:#5A6C7D;margin:0">Lorem ipsum placeholder.</p>'
         + '</div>';
     }).join('');
@@ -208,9 +208,9 @@
     return DATA.founders.map(function(f) {
       return '<div style="background:#fff;border-radius:18px;padding:24px;box-shadow:0 1px 3px rgba(30,58,95,.08);position:relative;overflow:hidden" class="card-hover-sm">'
         + '<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">'
-        + '<span style="width:54px;height:54px;border-radius:50%;background:' + f.bg + ';display:flex;align-items:center;justify-content:center;font-family:\'Fredoka\',sans-serif;font-weight:700;font-size:18px;color:#1E3A5F;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)">' + f.initials + '</span>'
+        + '<span style="width:54px;height:54px;border-radius:50%;background:' + f.bg + ';display:flex;align-items:center;justify-content:center;font-family:\'Quicksand\',sans-serif;font-weight:700;font-size:18px;color:#1E3A5F;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)">' + f.initials + '</span>'
         + '<div>'
-        + '<div style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:18px;color:#1E3A5F">' + f.name + '</div>'
+        + '<div style="font-family:\'Quicksand\',sans-serif;font-weight:600;font-size:18px;color:#1E3A5F">' + f.name + '</div>'
         + '<div style="font:600 11px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8B95A1;margin-top:3px">' + f.role + '</div>'
         + '</div></div>'
         + '<p style="font-size:14px;color:#5A6C7D;margin:0">Lorem ipsum dolor sit amet. Placeholder founder bio.</p>'
@@ -223,10 +223,10 @@
     return DATA.officers.map(function(o) {
       return '<div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 1px 3px rgba(30,58,95,.08)" class="card-hover">'
         + '<div style="height:96px;background:' + o.bg + ';position:relative">'
-        + '<span style="position:absolute;left:24px;bottom:-28px;width:64px;height:64px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:\'Fredoka\',sans-serif;font-weight:700;font-size:20px;color:#1E3A5F;box-shadow:0 4px 14px rgba(30,58,95,.18)">' + o.initials + '</span>'
+        + '<span style="position:absolute;left:24px;bottom:-28px;width:64px;height:64px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:\'Quicksand\',sans-serif;font-weight:700;font-size:20px;color:#1E3A5F;box-shadow:0 4px 14px rgba(30,58,95,.18)">' + o.initials + '</span>'
         + '</div>'
         + '<div style="padding:38px 22px 22px">'
-        + '<div style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:18px;color:#1E3A5F">' + o.name + '</div>'
+        + '<div style="font-family:\'Quicksand\',sans-serif;font-weight:600;font-size:18px;color:#1E3A5F">' + o.name + '</div>'
         + '<div style="font:600 11px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#7FB4D9;margin:5px 0 12px">' + o.role + '</div>'
         + '<p style="font-size:13px;color:#5A6C7D;margin:0 0 14px">' + L + '</p>'
         + '<a href="' + o.link + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font:600 12px/1 ui-monospace,monospace;letter-spacing:.06em;color:#1E3A5F;padding:7px 13px;border-radius:999px;border:1.5px solid rgba(127,180,217,.4);text-decoration:none;transition:background .2s" onmouseover="this.style.background=\'var(--holo)\';this.style.borderColor=\'transparent\'" onmouseout="this.style.background=\'none\';this.style.borderColor=\'rgba(127,180,217,.4)\'">Portfolio ↗</a>'
@@ -241,7 +241,7 @@
         + '<span style="position:absolute;top:12px;left:12px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.9);font:600 10px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#1E3A5F">' + e.kind + '</span>'
         + '</div>'
         + '<div style="padding:16px">'
-        + '<div style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:17px;color:#1E3A5F">' + e.title + '</div>'
+        + '<div style="font-family:\'Quicksand\',sans-serif;font-weight:600;font-size:17px;color:#1E3A5F">' + e.title + '</div>'
         + '<div style="font:600 11px/1 ui-monospace,monospace;color:#8B95A1;margin:5px 0 9px">' + e.date + '</div>'
         + '<p style="font-size:13px;color:#5A6C7D;margin:0">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>'
         + '</div></button>';
@@ -253,10 +253,10 @@
       return '<div style="display:grid;grid-template-columns:96px 1fr auto;gap:18px;align-items:center;background:#fff;border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(30,58,95,.08)" class="card-hover-sm">'
         + '<div style="text-align:center;border-radius:12px;background:' + ev.bg + ';padding:12px 8px">'
         + '<div style="font:700 13px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#1E3A5F">' + ev.mon + '</div>'
-        + '<div style="font-family:\'Fredoka\',sans-serif;font-weight:700;font-size:26px;color:#1E3A5F;line-height:1">' + ev.day + '</div>'
+        + '<div style="font-family:\'Quicksand\',sans-serif;font-weight:700;font-size:26px;color:#1E3A5F;line-height:1">' + ev.day + '</div>'
         + '</div>'
         + '<div>'
-        + '<div style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:18px;color:#1E3A5F">' + ev.title + '</div>'
+        + '<div style="font-family:\'Quicksand\',sans-serif;font-weight:600;font-size:18px;color:#1E3A5F">' + ev.title + '</div>'
         + '<div style="font:600 11px/1 ui-monospace,monospace;color:#8B95A1;margin:4px 0 6px">' + ev.time + ' · ' + ev.place + '</div>'
         + '<p style="font-size:13px;color:#5A6C7D;margin:0">' + ev.body + '</p>'
         + '</div>'
@@ -271,7 +271,7 @@
         + '<div style="aspect-ratio:1;background:' + m.bg + ';display:flex;align-items:center;justify-content:center;font-size:46px">' + m.glyph + '</div>'
         + '<div style="padding:16px">'
         + '<div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">'
-        + '<span style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:16px;color:#1E3A5F">' + m.name + '</span>'
+        + '<span style="font-family:\'Quicksand\',sans-serif;font-weight:600;font-size:16px;color:#1E3A5F">' + m.name + '</span>'
         + '<span style="font:700 14px/1 ui-monospace,monospace;color:#1E3A5F">' + m.price + '</span>'
         + '</div>'
         + '<p style="font-size:12px;color:#8B95A1;margin:7px 0 0">' + m.desc + '</p>'
