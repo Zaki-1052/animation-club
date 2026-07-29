@@ -104,7 +104,7 @@
     var el = document.getElementById('order-items');
     if (!el) return;
     if (!items.length) {
-      el.innerHTML = '<div class="order-empty">Nothing here yet — add items from the shelves above.</div>';
+      el.innerHTML = '<div class="order-empty">Nothing here yet, add items from the shelves above.</div>';
       updateBar();
       return;
     }

@@ -7,13 +7,45 @@
   var navOpen = false;
   var io = null;
 
-  function go(page) {
-    currentPage = page;
-    navOpen = false;
-    render();
-    window.scrollTo({ top: 0, behavior: 'auto' });
-    setupReveals();
+  function validPage(key) {
+    return !!document.querySelector('.page[data-page="' + key + '"]');
   }
+
+  function pageFromPath() {
+    var slug = location.pathname.replace(/^\/+|\/+$/g, '').split('/')[0];
+    return (slug && validPage(slug)) ? slug : 'home';
+  }
+
+  function go(page, pushState) {
+    if (page === currentPage) return;
+    if (navOpen) {
+      navOpen = false;
+      document.getElementById('mobile-menu').style.display = 'none';
+      setHamburgerIcon(false);
+    }
+    var swap = function() {
+      currentPage = page;
+      render();
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      setupReveals();
+    };
+    if (pushState !== false) {
+      history.pushState({ page: page }, '', page === 'home' ? '/' : '/' + page);
+    }
+    if (document.startViewTransition
+        && document.documentElement.getAttribute('data-motion') !== '0') {
+      document.startViewTransition(swap);
+    } else {
+      swap();
+    }
+  }
+
+  window.addEventListener('popstate', function(e) {
+    var page = (e.state && e.state.page) ? e.state.page : pageFromPath();
+    if (page !== currentPage) {
+      go(page, false);
+    }
+  });
 
   function setHamburgerIcon(open) {
     var btn = document.getElementById('hamburger');
@@ -137,6 +169,8 @@
   };
 
   document.addEventListener('DOMContentLoaded', function() {
+    currentPage = pageFromPath();
+    history.replaceState({ page: currentPage }, '', currentPage === 'home' ? '/' : '/' + currentPage);
     window.__rerender();
     render();
     setupReveals();

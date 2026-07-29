@@ -393,5 +393,29 @@ body,
 @media (max-width:560px){
   .order-fields{grid-template-columns:1fr}
   .masthead-title{top:38%}
+  .masthead-note{font-size:12px;margin-top:6px}
   .home-welcome{font-size:18px}
 }
+
+/* ── PAGE-TURN TRANSITION (View Transitions API) ─────────────── */
+.site-nav{view-transition-name:nav}
+::view-transition-group(nav){animation:none}
+::view-transition-old(nav),
+::view-transition-new(nav){animation:none;mix-blend-mode:normal}
+
+::view-transition-old(root){animation:page-out .38s ease-in both}
+::view-transition-new(root){animation:page-in .38s ease-out .06s both}
+
+@keyframes page-out{
+  to{transform:perspective(900px) rotateY(-8deg) translateX(-6%);opacity:0}
+}
+@keyframes page-in{
+  from{transform:perspective(900px) rotateY(6deg) translateX(4%);opacity:0}
+}
+
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-old(root),
+  ::view-transition-new(root){animation-duration:.01s!important}
+}
+[data-motion="0"] ::view-transition-old(root),
+[data-motion="0"] ::view-transition-new(root){animation-duration:.01s!important}
