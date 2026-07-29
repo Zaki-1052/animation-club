@@ -20,7 +20,7 @@ window.AC.CONTENT.site = {
     merch: { eyebrow: 'Shop',         title: 'Merch' }
   },
 
-  // Home "find your way around" cards. — connective copy, edit freely
+  // Home "find your way around" cards
   navCards: [
     { key: 'past',  title: 'Past events', desc: 'Speaker panels, workshops, jams, and the MAP.', label: 'Browse' },
     { key: 'fall',  title: 'Fall events', desc: 'The Fall 2026 schedule.', label: 'See schedule' },

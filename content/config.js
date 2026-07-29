@@ -22,7 +22,7 @@ window.AC.CONTENT.config = {
   ],
 
   // Theme picker (the palette button in the corner). Hidden for visitors.
-  // Set true while developing — or append ?themes to the URL to get it
+  // Set true while developing or append ?themes to the URL to get it
   // temporarily without changing this file (e.g. site.edu/?themes).
   SHOW_THEME_PICKER: false,
 
