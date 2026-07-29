@@ -1,4 +1,4 @@
-// order.js — merch order builder + Web3Forms submission
+// order.js — merch order builder + EmailJS submission
 (function() {
   var DATA = window.AC.DATA;
   var ORDER = DATA.config.ORDER;
@@ -205,8 +205,8 @@
     var problem = validate();
     if (problem) { showError(esc(problem)); return; }
 
-    if (!ORDER.ACCESS_KEY || ORDER.ACCESS_KEY === 'PASTE-KEY-HERE') {
-      showError('The order form isn\'t set up yet (missing form key). DM us on Instagram '
+    if (!ORDER.SERVICE_ID || !ORDER.TEMPLATE_ID || !ORDER.PUBLIC_KEY) {
+      showError('The order form isn\'t set up yet (missing email config). DM us on Instagram '
         + '<a href="' + DATA.site.instagram.url + '" target="_blank" rel="noopener" style="font-weight:600;text-decoration:underline">' + esc(DATA.site.instagram.handle) + '</a>'
         + ' with your order instead.');
       return;
@@ -226,35 +226,39 @@
       + 'Items:\n' + lines.join('\n') + '\n'
       + 'Total: $' + total() + ' (before taxes and shipping)\n\n'
       + (notes ? 'Notes: ' + notes + '\n\n' : '')
-      + 'From: ' + name + ' <' + email + '>\n'
-      + 'For: ' + ORDER.RECIPIENTS.join(', ');
+      + 'From: ' + name + ' <' + email + '>';
 
     var submitBtn = document.getElementById('order-submit');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
 
-    fetch(ORDER.ENDPOINT, {
+    // The email subject comes from the template ("Merch order request from
+    // {{from_name}}"), so only the three template params are sent.
+    fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        access_key: ORDER.ACCESS_KEY,
-        subject: 'Merch order request from ' + name,
-        from_name: name,
-        email: email,
-        message: message,
-        botcheck: false
+        user_id: ORDER.PUBLIC_KEY,
+        service_id: ORDER.SERVICE_ID,
+        template_id: ORDER.TEMPLATE_ID,
+        template_params: {
+          from_name: name,
+          from_email: email,
+          message: message
+        }
       })
     }).then(function(res) {
-      return res.json().then(function(json) { return { ok: res.ok, json: json }; });
+      // EmailJS answers with plain text ("OK" on success), not JSON.
+      return res.text().then(function(text) { return { ok: res.ok, text: text }; });
     }).then(function(r) {
-      if (r.ok && r.json.success) {
+      if (r.ok) {
         logSubmission();
         document.getElementById('order-form-wrap').style.display = 'none';
         document.getElementById('order-sent').style.display = 'block';
         items = [];
         updateBar();
       } else {
-        showError('Sending failed: ' + esc(r.json.message || 'unknown error') + ' — try again, or DM us on Instagram.');
+        showError('Sending failed: ' + esc(r.text || 'unknown error') + ' — try again, or DM us on Instagram.');
       }
     }).catch(function(err) {
       showError('Sending failed: ' + esc(err.message) + ' — try again, or DM us on Instagram.');

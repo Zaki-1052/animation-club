@@ -24,14 +24,14 @@ No build step, no linting, no tests.
 
 **Content layer.** All editable copy/data lives in `content/*.js` (each sets a slice of `window.AC.CONTENT`). Files are marked `EDIT ME` and flag VP-verbatim text vs. connective copy. `data.js` is a thin assembler: it reads `AC.CONTENT`, decorates entries with gradient tokens (`AC.G`), and produces `AC.DATA`.
 
-- `content/config.js` — visible pages (`PAGES` / `HIDDEN_PAGES`) and Web3Forms order delivery (`ORDER`, needs `ACCESS_KEY` pasted once)
+- `content/config.js` — visible pages (`PAGES` / `HIDDEN_PAGES`) and EmailJS order delivery (`ORDER`: service/template/public key; recipients live in the EmailJS template, see `emailjs-template.md`)
 - `content/site.js` — welcome line, page headers, nav cards, footer, Instagram links
 - `content/events.js` — past event categories + Fall 2026 schedule
 - `content/merch.js` — products, prices, image paths, sizes, order-form copy
 
 **Rendering.** Each section has a `render*()` function in `renderers.js` building HTML strings from `AC.DATA`, injected via `innerHTML` from `window.__rerender()` in `app.js` (runs on DOMContentLoaded and after theme switches; all lookups are null-guarded). The nav (desktop + mobile) is rendered from `config.PAGES` — hiding/showing a page is a one-line config change.
 
-**Merch orders.** `order.js` owns the order builder: `__addToOrder` from product cards, quantity/remove controls, a floating order bar, and `__submitOrder` which POSTs to Web3Forms. With no `ACCESS_KEY` configured it shows an explicit error pointing at Instagram — it never fakes success.
+**Merch orders.** `order.js` owns the order builder: `__addToOrder` from product cards, quantity/remove controls, a floating order bar, and `__submitOrder` which POSTs to the EmailJS REST API (plain-text `OK` response, not JSON; recipients are hardcoded in the EmailJS template). With incomplete `ORDER` config it shows an explicit error pointing at Instagram — it never fakes success.
 
 **Page frame system (storybook theme).** Each visible page is a "storybook page" built from the VP's drawn art (`files/website-background/`, optimized into `assets/frame/`):
 
@@ -55,7 +55,7 @@ Non-storybook themes collapse this via the `:root:not([data-theme="storybook"])`
 - `data.js` — assembles `AC.DATA` from content, adds gradient tokens
 - `renderers.js` — nav + section renderers exposed as `AC.renderers`
 - `app.js` — SPA routing, lightbox (image or gradient), scroll-reveal, static copy injection
-- `order.js` — merch order state, order bar, Web3Forms submission
+- `order.js` — merch order state, order bar, EmailJS submission
 - `styles.css` — **storybook base theme** (`:root` tokens + all component styles + storybook decoration + non-storybook fallback layout)
 - `theme-switcher.js` — floating picker; storybook is default (`file:''`), others load `themes/*.css`
 - `themes/` — `holo.css` (the original holographic look), `scrapbook.css`, `floral.css`, `forest.css`, `baroque.css`

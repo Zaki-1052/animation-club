@@ -26,11 +26,14 @@ window.AC.CONTENT.config = {
   // temporarily without changing this file (e.g. site.edu/?themes).
   SHOW_THEME_PICKER: false,
 
-  // Merch order form delivery (Web3Forms).
+  // Merch order form delivery (EmailJS). Who actually receives the email is
+  // set in the EmailJS template's To Email field, not here.
   ORDER: {
-    ENDPOINT: 'https://api.web3forms.com/submit',
-    ACCESS_KEY: '6560fbfd-ccf4-4b41-a21b-c389ae6cfa34',
+    SERVICE_ID: 'service_7kjo57a',
+    TEMPLATE_ID: 'template_b5i6upo',
+    PUBLIC_KEY: 'CoRL_J--EZRkE8ew1',
 
+    // Reference copy of the recipients (delivery itself is template-side).
     RECIPIENTS: ['a8salazar@ucsd.edu', 'kmatsuoka@ucsd.edu', 'r8lau@ucsd.edu'],
 
     // Light spam protection. Raise or lower freely.

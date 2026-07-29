@@ -59,12 +59,11 @@ const THEMES = ['holo', 'scrapbook', 'floral', 'forest', 'baroque'];
   }
 
   // Order form: exercise the real submit path against a mocked endpoint.
-  // The route intercept is mandatory — config.js holds a live Web3Forms key,
+  // The route intercept is mandatory — config.js holds live EmailJS IDs,
   // so an un-mocked submit here would email the officers a fake order.
   const p2 = await newPage(1280, 900);
-  await p2.route('**/api.web3forms.com/**', r => r.fulfill({
-    status: 200, contentType: 'application/json',
-    body: JSON.stringify({ success: true, message: 'mocked' })
+  await p2.route('**/api.emailjs.com/**', r => r.fulfill({
+    status: 200, contentType: 'text/plain', body: 'OK'
   }));
   await p2.goto(BASE, { waitUntil: 'domcontentloaded', timeout: 60000 });
   await p2.waitForTimeout(800);

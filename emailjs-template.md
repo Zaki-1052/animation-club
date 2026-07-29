@@ -1,8 +1,8 @@
-<!-- emailjs-template.md — EmailJS template to paste into the dashboard (todo.md: swap form backend) -->
+<!-- emailjs-template.md — the EmailJS template for merch orders (live IDs are in content/config.js) -->
 
 # EmailJS template — merch order request
 
-Paste-ready template for the EmailJS dashboard (Email Templates → New Template). The variable names match what `order.js` will send as `template_params`: `from_name`, `from_email`, `message`.
+The dashboard template that `order.js` sends through (Email Templates → the one matching `TEMPLATE_ID` in `content/config.js`). To restyle it, paste the HTML below over the template's Content in the **code editor** and save. The variables are exactly what `order.js` sends as `template_params`: `from_name`, `from_email`, `message`.
 
 ## Settings tab
 
@@ -26,33 +26,54 @@ Merch order request from {{from_name}}
 
 ## Content (code editor, HTML)
 
+Storybook-themed to match the site: parchment page in a double gold frame on a sky wash, plum ink, a hard-offset "stacked paper" border on the order card, `─ ✦ ─` rule. Email clients strip webfonts and `box-shadow`, so the theme travels in email-safe form: nested borders make the double gold frame, asymmetric border widths fake the hard offset shadow, and system stacks stand in for the site fonts (Trebuchet ≈ Fredoka, Bradley Hand/Segoe Print ≈ Patrick Hand, Georgia ≈ Cinzel). All styles are inline; layout is a table so Outlook keeps the width.
+
 ```html
-<div style="max-width:560px;margin:0 auto;padding:24px 16px;font-family:Arial,Helvetica,sans-serif;color:#3B2A52;">
-  <h2 style="margin:0 0 4px;font-size:18px;color:#3B2A52;">Merch order request</h2>
-  <p style="margin:0 0 16px;font-size:13px;color:#7a6f8f;">Sent from the Animation Club website order form</p>
-  <div style="background:#FDF9F0;border:1px solid #e0d5bf;border-radius:8px;padding:16px;">
-    <pre style="margin:0;font-family:'Courier New',Courier,monospace;font-size:14px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;color:#3B2A52;">{{message}}</pre>
-  </div>
-  <p style="margin:16px 0 0;font-size:13px;color:#7a6f8f;">Reply to this email to reach {{from_name}} at {{from_email}}.</p>
-</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#EAF1F5;padding:28px 12px;">
+  <tr>
+    <td align="center">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:560px;">
+        <tr>
+          <td style="background-color:#FDF9F0;border:3px solid #B08A47;border-radius:16px;padding:5px;">
+            <div style="border:1px solid #D9C69B;border-radius:11px;padding:26px 24px;">
+
+              <p style="margin:0 0 8px;font-family:Georgia,'Times New Roman',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8F5F20;">Animation Club &middot; UC San Diego</p>
+              <h2 style="margin:0 0 4px;font-family:'Trebuchet MS','Segoe UI',Verdana,sans-serif;font-size:23px;line-height:1.2;color:#3B2A52;">Merch order request</h2>
+              <p style="margin:0 0 20px;font-family:'Bradley Hand','Segoe Print','Comic Sans MS',cursive;font-size:14px;color:#7D6F96;">Sent from the website order form</p>
+
+              <div style="background-color:#FFFDF7;border:2px solid #3B2A52;border-right-width:4px;border-bottom-width:5px;border-radius:10px;padding:16px 18px;">
+                <pre style="margin:0;font-family:'Courier New',Courier,monospace;font-size:14px;line-height:1.55;white-space:pre-wrap;word-wrap:break-word;color:#3B2A52;">{{message}}</pre>
+              </div>
+
+              <p style="margin:22px 0 10px;text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:13px;letter-spacing:2px;color:#B08A47;">&#9472; &#10022; &#9472;</p>
+              <p style="margin:0;text-align:center;font-family:'Bradley Hand','Segoe Print','Comic Sans MS',cursive;font-size:15px;line-height:1.5;color:#5C4E75;">Reply to this email to reach <strong style="color:#3B2A52;">{{from_name}}</strong> at {{from_email}}.</p>
+
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 ```
 
-The `<pre>` with `white-space:pre-wrap` preserves the line breaks in the plain-text block `order.js` builds (item lines, total, notes); a bare `{{message}}` in an HTML body would collapse them.
+Color notes: parchment `#FDF9F0` / plum `#3B2A52` are the site's committed pair; golds `#B08A47`/`#D9C69B`/`#8F5F20` are solid stand-ins for the site's gold hairlines (Outlook ignores `rgba`); `#EAF1F5` is a light wash of the sky accent. The `<pre>` with `white-space:pre-wrap` preserves the line breaks in the plain-text block `order.js` builds.
 
 ## Contract with order.js
 
-The template consumes exactly three params:
+`order.js` POSTs JSON to `https://api.emailjs.com/api/v1.0/email/send`:
 
 ```json
 {
-  "from_name": "buyer's name",
-  "from_email": "buyer's email",
-  "message": "the preformatted order block built in __submitOrder"
+  "user_id": "<PUBLIC_KEY>",
+  "service_id": "<SERVICE_ID>",
+  "template_id": "<TEMPLATE_ID>",
+  "template_params": {
+    "from_name": "buyer's name",
+    "from_email": "buyer's email",
+    "message": "preformatted order block (items, total, notes, From line)"
+  }
 }
 ```
 
-Notes for the code swap (tracked in todo.md):
-
-- `order.js` currently sends the buyer address as `email` — rename to `from_email` in the new payload.
-- The `ccemail` field and the trailing `For: …` line in `message` become redundant (recipients now live in this template).
-- Verified against the EmailJS SDK docs: `template_params` keys must match the `{{…}}` placeholders exactly; unknown params are ignored. Comma-separated To Email is per EmailJS's multiple-recipient support (as researched in todo.md) — confirm once with a test send before decommissioning the Web3Forms key.
+EmailJS answers with plain text — `OK` on success — so `order.js` reads `res.text()`, not JSON. Template param keys must match the `{{…}}` placeholders exactly; a mismatched key renders blank in the email rather than erroring.
