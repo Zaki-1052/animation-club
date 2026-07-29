@@ -102,5 +102,3 @@ Warm, casual, student-to-student; "we" (the club) to "you" (the reader). Sentenc
 
 The `Animation Club — Holographic UI Kit/` directory contains a design system export (from Claude Design) documenting the holo theme's token layer. Reference only — the live site is the source of truth.
 
-@website-information.md
-@requests.txt

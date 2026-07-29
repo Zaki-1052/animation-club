@@ -6,7 +6,7 @@ window.AC.CONTENT = window.AC.CONTENT || {};
 
 window.AC.CONTENT.merch = {
 
-  // Shown once under the page title. — VP wording, lightly rephrased
+  // Shown once under the page title
   priceNote: 'Prices do not include taxes and shipping.',
 
   products: [
@@ -30,7 +30,7 @@ window.AC.CONTENT.merch = {
 
   sizes: ['S', 'M', 'L', 'XL', '2XL'],
 
-  // Order form copy. — connective copy, edit freely
+  // Order form copy
   form: {
     title: 'Request an order',
     blurb: 'Pick your items, send the request, and an officer will follow up by email with payment and pickup details.',

@@ -1,13 +1,11 @@
 // content/events.js — past event categories + Fall 2026 schedule
-// EDIT ME — plain text strings, no code knowledge needed.
+// EDIT ME
 window.AC = window.AC || {};
 window.AC.CONTENT = window.AC.CONTENT || {};
 
 window.AC.CONTENT.events = {
 
-  // Past events, grouped the way the VP wrote them.
-  // Body text is VERBATIM from website-information.md (proper-noun
-  // capitalization normalized).
+  // Past events, grouped by doc.
   past: [
     {
       title: 'Speaker events',
@@ -17,7 +15,7 @@ window.AC.CONTENT.events = {
         'A trip to Lightbox convention',
         'A speaker panel with Sam Register (the president of Warner Bros Animation)',
         'A speaker panel with the animators from Teen Titans Go',
-        // spelling as provided — double-check the name before print
+        // spelling?
         'A speaker panel with Magery Dean'
       ]
     },
@@ -38,9 +36,7 @@ window.AC.CONTENT.events = {
     }
   ],
 
-  // Fall 2026 schedule — VERBATIM from website-information.md.
-  // Note: the source listed the TTV collab as 11/3; every other event is a
-  // Friday, so this uses 11/13. Confirm with the VP.
+  // Fall 2026 schedule
   fall: [
     { mon: 'OCT', day: '02', title: 'First GBM! (with free boba)', tag: 'Meeting' },
     { mon: 'OCT', day: '09', title: 'Portfolio Workshop: 12 Principles of Animation', tag: 'Workshop' },
@@ -54,7 +50,18 @@ window.AC.CONTENT.events = {
     { mon: 'DEC', day: '04', title: 'Shrek Movie Screening & Social', tag: 'Screening' }
   ],
 
-  // The "Next up" banner on the Fall Events page points at this entry (0 = first).
-  // Bump it as events pass.
-  nextIndex: 0
+  // Auto-computed: points at the first event whose date hasn't passed yet.
+  get nextIndex() {
+    var months = { JAN:0, FEB:1, MAR:2, APR:3, MAY:4, JUN:5,
+                   JUL:6, AUG:7, SEP:8, OCT:9, NOV:10, DEC:11 };
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    for (var i = 0; i < this.fall.length; i++) {
+      var ev = this.fall[i];
+      //TODO: update year in Winter quarter
+      var evDate = new Date(2026, months[ev.mon], parseInt(ev.day, 10));
+      if (evDate >= today) return i;
+    }
+    return this.fall.length - 1;
+  }
 };
