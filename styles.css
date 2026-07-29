@@ -307,9 +307,13 @@ button{font-family:inherit}
 .footer-inner{max-width:1240px;margin:0 auto;padding:34px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .footer-brand{display:flex;align-items:center;gap:13px}
 .footer-logo{width:42px;height:42px;border-radius:12px;object-fit:cover}
+.footer-meta-right{position:relative}
+.footer-credit{position:absolute;bottom:100%;right:0;margin-bottom:4px;font-family:var(--font-body);font-style:italic;font-size:11px;color:var(--c-muted);white-space:nowrap}
+.footer-credit a{color:var(--c-muted);text-decoration:underline;text-underline-offset:2px}
+.footer-credit a:hover{color:var(--c-primary)}
 .footer-name{font-family:var(--font-logo);font-weight:600;color:var(--c-primary);font-size:18px}
 .footer-sub{font:600 10px/1 var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--c-muted);margin-top:3px}
-.footer-social{display:flex;gap:12px}
+.footer-social{display:flex;gap:12px;position:relative;top:-4px}
 .footer-social-link{width:44px;height:44px;border-radius:50%;background:var(--bg-card);box-shadow:var(--shadow-card);display:flex;align-items:center;justify-content:center;color:var(--c-primary);transition:background .2s,transform .2s}
 .footer-social-link:hover{background:var(--holo);transform:translateY(-3px);color:var(--c-primary)}
 .footer-meta{max-width:1240px;margin:0 auto;padding:0 24px 28px;font-size:14px;color:var(--c-muted-2);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
