@@ -6,7 +6,7 @@
   <title>Animation Club · UC San Diego</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Pacifico&family=Quicksand:wght@400;500;600;700&family=Patrick+Hand&family=Fredoka:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Pacifico&family=Quicksand:wght@400;500;600;700&family=Patrick+Hand&family=Fredoka:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Alice&family=Ribeye&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link id="theme-css" rel="stylesheet" href="">
 </head>
@@ -64,6 +64,7 @@
         <div class="hero-frame-bonnie">
           <img src="assets/bonnie.webp" alt="Bonnie the pegasus holding a Welcome to Animation Club sign">
         </div>
+        <p class="hero-welcome" id="home-welcome-arch"></p>
       </div>
       <div class="page-body">
         <section class="home-intro reveal">
@@ -139,6 +140,7 @@
             <div id="order-form-wrap">
               <h2 class="order-title" id="order-form-title"></h2>
               <p class="order-blurb" id="order-form-blurb"></p>
+              <p class="order-note" id="order-note"></p>
               <div id="order-items" class="order-items"></div>
               <form onsubmit="window.__submitOrder(event)">
                 <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">

@@ -43,11 +43,11 @@ const THEMES = ['holo', 'scrapbook', 'floral', 'forest', 'baroque'];
     await page.close();
   }
 
-  // Theme sweep — home + merch at 1440
+  // Theme sweep — home + merch at 1440 (?themes enables the dev-gated picker)
   for (const theme of THEMES) {
     const page = await newPage(1440, 900);
     await page.addInitScript(t => localStorage.setItem('ac-theme', t), theme);
-    await page.goto(BASE, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.goto(BASE + '/?themes', { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.waitForTimeout(1000);
     for (const key of ['home', 'merch']) {
       await page.evaluate(k => window.__go(k), key);

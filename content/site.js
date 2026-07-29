@@ -22,9 +22,9 @@ window.AC.CONTENT.site = {
 
   // Home "find your way around" cards. — connective copy, edit freely
   navCards: [
-    { key: 'past',  glyph: '🎬', title: 'Past events', desc: 'Speaker panels, workshops, jams, and the MAP.', label: 'Browse' },
-    { key: 'fall',  glyph: '🍂', title: 'Fall events', desc: 'The Fall 2026 schedule.', label: 'See schedule' },
-    { key: 'merch', glyph: '🧸', title: 'Merch', desc: 'Stickers, keychains, totes, and hoodies.', label: 'Shop' }
+    { key: 'past',  title: 'Past events', desc: 'Speaker panels, workshops, jams, and the MAP.', label: 'Browse' },
+    { key: 'fall',  title: 'Fall events', desc: 'The Fall 2026 schedule.', label: 'See schedule' },
+    { key: 'merch', title: 'Merch', desc: 'Stickers, keychains, totes, and hoodies.', label: 'Shop' }
   ],
 
   footer: {

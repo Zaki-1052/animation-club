@@ -15,13 +15,18 @@
     setupReveals();
   }
 
+  function setHamburgerIcon(open) {
+    var btn = document.getElementById('hamburger');
+    if (!btn) return;
+    btn.innerHTML = open
+      ? '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>'
+      : '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>';
+  }
+
   function toggleNav() {
     navOpen = !navOpen;
     document.getElementById('mobile-menu').style.display = navOpen ? 'flex' : 'none';
-    var btn = document.getElementById('hamburger');
-    btn.innerHTML = navOpen
-      ? '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>'
-      : '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>';
+    setHamburgerIcon(navOpen);
   }
 
   // Lightbox: item = { title, meta, img } (image) or { title, meta, bg } (gradient).
@@ -76,6 +81,7 @@
     });
     document.getElementById('mobile-menu').style.display = 'none';
     navOpen = false;
+    setHamburgerIcon(false);
   }
 
   function setHTML(id, html) {
@@ -108,6 +114,7 @@
     // Static copy from content/
     var site = DATA.site;
     setText('home-welcome', site.welcome);
+    setText('home-welcome-arch', site.welcome);
     setText('past-eyebrow', site.pages.past.eyebrow);
     setText('past-title', site.pages.past.title);
     setText('fall-eyebrow', site.pages.fall.eyebrow);
@@ -119,6 +126,7 @@
     setText('footer-tag', site.footer.tag);
     setText('order-form-title', DATA.merch.form.title);
     setText('order-form-blurb', DATA.merch.form.blurb);
+    setText('order-note', DATA.merch.priceNote);
     setText('order-sent-title', DATA.merch.form.sentTitle);
     setText('order-sent-body', DATA.merch.form.sentBody);
 

@@ -9,10 +9,16 @@
     { id: 'baroque', name: 'Baroque Fairytale', swatch: 'linear-gradient(135deg,#4a7c59,#d4a843,#e8a0bf)', file: 'themes/baroque.css' }
   ];
 
-  var current = localStorage.getItem('ac-theme') || 'storybook';
+  // Dev gate: the picker only exists when enabled in content/config.js or
+  // via a ?themes URL param. Disabled -> visitors always get the default
+  // theme, regardless of anything saved in localStorage.
+  var CFG = (window.AC && window.AC.CONTENT && window.AC.CONTENT.config) || {};
+  var enabled = CFG.SHOW_THEME_PICKER === true || /[?&]themes\b/.test(window.location.search);
+
+  var current = enabled ? (localStorage.getItem('ac-theme') || 'storybook') : 'storybook';
   // Saved ids from older builds (e.g. 'default') fall back to the site default.
   if (!THEMES.some(function(t) { return t.id === current; })) current = 'storybook';
-  var collapsed = false;
+  var collapsed = true; // start tucked away as just the 🎨 button
 
   function applyTheme(id) {
     current = id;
@@ -70,14 +76,14 @@
 
     var toggle = document.createElement('button');
     toggle.id = 'theme-toggle';
-    toggle.textContent = '✕';
+    toggle.textContent = collapsed ? '🎨' : '✕';
     toggle.style.cssText = 'width:32px;height:32px;border-radius:50%;border:none;background:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s;flex-shrink:0';
     toggle.onclick = toggleCollapse;
     bar.appendChild(toggle);
 
     var tray = document.createElement('div');
     tray.id = 'theme-tray';
-    tray.style.cssText = 'display:flex;align-items:center;gap:6px';
+    tray.style.cssText = 'display:' + (collapsed ? 'none' : 'flex') + ';align-items:center;gap:6px';
 
     THEMES.forEach(function(t) {
       var btn = document.createElement('button');
@@ -109,9 +115,12 @@
     applyTheme(current);
   }
 
+  // Disabled: no picker UI — just apply the default theme.
+  var init = enabled ? buildSwitcher : function() { applyTheme(current); };
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', buildSwitcher);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    buildSwitcher();
+    init();
   }
 })();

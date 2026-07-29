@@ -21,6 +21,11 @@ window.AC.CONTENT.config = {
     { key: 'contact',  label: 'Contact' }
   ],
 
+  // Theme picker (the palette button in the corner). Hidden for visitors.
+  // Set true while developing — or append ?themes to the URL to get it
+  // temporarily without changing this file (e.g. site.edu/?themes).
+  SHOW_THEME_PICKER: false,
+
   // Merch order form delivery (Web3Forms).
   // Setup (one time): go to https://web3forms.com, enter a8salazar@ucsd.edu,
   // click the link in the confirmation email, and paste the access key below.

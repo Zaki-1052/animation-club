@@ -40,10 +40,9 @@ window.AC = window.AC || {};
 
   function renderNavCards() {
     return DATA.navCards.map(function(nc) {
-      return '<button onclick="window.__go(\'' + nc.key + '\')" style="position:relative;text-align:left;background:' + BC + ';border:none;border-radius:' + RC + ';padding:22px;cursor:pointer;overflow:hidden;box-shadow:' + SC + '" class="card-hover-sm">'
+      return '<button onclick="window.__go(\'' + nc.key + '\')" style="position:relative;text-align:left;background:' + BC + ';border:none;border-radius:' + RC + ';padding:24px 22px;cursor:pointer;overflow:hidden;box-shadow:' + SC + '" class="card-hover-sm">'
         + '<span style="position:absolute;top:0;left:0;right:0;height:5px;background:' + nc.bg + '"></span>'
-        + '<span style="display:inline-flex;width:46px;height:46px;border-radius:14px;background:' + nc.bg + ';align-items:center;justify-content:center;font-size:22px;margin-bottom:14px">' + nc.glyph + '</span>'
-        + '<div style="font-family:' + FD + ';font-weight:600;font-size:20px;color:' + CP + ';margin-bottom:6px">' + esc(nc.title) + '</div>'
+        + '<div style="font-family:' + FD + ';font-weight:600;font-size:20px;color:' + CP + ';margin:6px 0">' + esc(nc.title) + '</div>'
         + '<div style="font-size:15px;color:' + CS + ';line-height:1.5">' + esc(nc.desc) + '</div>'
         + '<div style="margin-top:14px;font:600 11px/1 ' + FM + ';letter-spacing:.12em;text-transform:uppercase;color:' + CA2 + '">' + esc(nc.label) + ' →</div>'
         + '</button>';
@@ -94,13 +93,13 @@ window.AC = window.AC || {};
   // Fall events — schedule rows.
   function renderFall() {
     return DATA.fall.map(function(ev) {
-      return '<div style="display:grid;grid-template-columns:84px 1fr auto;gap:16px;align-items:center;background:' + BC + ';border-radius:14px;padding:14px 16px;margin-bottom:12px;box-shadow:' + SC + '" class="card-hover-sm">'
-        + '<div style="text-align:center;border-radius:10px;background:' + ev.bg + ';padding:9px 6px">'
+      return '<div class="fall-row card-hover-sm" style="background:' + BC + ';border-radius:14px;padding:14px 16px;margin-bottom:12px;box-shadow:' + SC + '">'
+        + '<div class="fall-date" style="text-align:center;border-radius:10px;background:' + ev.bg + ';padding:9px 6px">'
         + '<div style="font:700 12px/1.3 ' + FM + ';letter-spacing:.1em;text-transform:uppercase;color:' + CP + '">' + ev.mon + '</div>'
         + '<div style="font-family:' + FD + ';font-weight:700;font-size:24px;color:' + CP + ';line-height:1.1">' + ev.day + '</div>'
         + '</div>'
-        + '<div style="font-family:' + FB + ';font-weight:500;font-size:18px;color:' + CP + '">' + esc(ev.title) + '</div>'
-        + '<span style="padding:5px 12px;border-radius:999px;background:' + BI + ';font:600 10px/1.4 ' + FM + ';letter-spacing:.08em;text-transform:uppercase;color:' + CA2 + ';white-space:nowrap">' + esc(ev.tag) + '</span>'
+        + '<div class="fall-row-title" style="font-family:' + FB + ';font-weight:500;font-size:18px;color:' + CP + '">' + esc(ev.title) + '</div>'
+        + '<span class="fall-tag" style="padding:5px 12px;border-radius:999px;background:' + BI + ';font:600 10px/1.4 ' + FM + ';letter-spacing:.08em;text-transform:uppercase;color:' + CA2 + ';white-space:nowrap">' + esc(ev.tag) + '</span>'
         + '</div>';
     }).join('');
   }
