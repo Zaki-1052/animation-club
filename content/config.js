@@ -27,14 +27,15 @@ window.AC.CONTENT.config = {
   SHOW_THEME_PICKER: false,
 
   // Merch order form delivery (Web3Forms).
-  // Setup (one time): go to https://web3forms.com, enter a8salazar@ucsd.edu,
-  // click the link in the confirmation email, and paste the access key below.
-  // Until the key is pasted, the form shows a "not set up yet" error on submit.
   ORDER: {
     ENDPOINT: 'https://api.web3forms.com/submit',
-    ACCESS_KEY: 'PASTE-KEY-HERE',
-    // All three officers are listed in the email body; Web3Forms delivers to
-    // the key owner's inbox (a8salazar@ucsd.edu).
-    RECIPIENTS: ['a8salazar@ucsd.edu', 'kmatsuoka@ucsd.edu', 'r8lau@ucsd.edu']
+    ACCESS_KEY: '6560fbfd-ccf4-4b41-a21b-c389ae6cfa34',
+
+    RECIPIENTS: ['a8salazar@ucsd.edu', 'kmatsuoka@ucsd.edu', 'r8lau@ucsd.edu'],
+
+    // Light spam protection. Raise or lower freely.
+    MAX_PER_DAY: 10,      // order requests one browser can send per 24h
+    MAX_ITEMS: 50,       // total pieces in a single order
+    MIN_SECONDS: 3       // form must be open this long before sending (bots are instant)
   }
 };

@@ -142,21 +142,25 @@
               <p class="order-blurb" id="order-form-blurb"></p>
               <p class="order-note" id="order-note"></p>
               <div id="order-items" class="order-items"></div>
-              <form onsubmit="window.__submitOrder(event)">
+              <!-- novalidate: order.js owns validation so messages match the site styling -->
+              <form onsubmit="window.__submitOrder(event)" novalidate>
                 <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
                 <div class="order-fields">
                   <div>
                     <label class="field-label" for="order-name">Name</label>
-                    <input class="input-field" id="order-name" name="name" placeholder="Your name" required>
+                    <input class="input-field" id="order-name" name="name" placeholder="Your name" autocomplete="name" maxlength="80" required>
+                    <p class="field-error" id="err-order-name"></p>
                   </div>
                   <div>
                     <label class="field-label" for="order-email">Email</label>
-                    <input class="input-field" id="order-email" name="email" type="email" placeholder="you@ucsd.edu" required>
+                    <input class="input-field" id="order-email" name="email" type="email" placeholder="you@ucsd.edu" autocomplete="email" maxlength="120" required>
+                    <p class="field-error" id="err-order-email"></p>
                   </div>
                 </div>
                 <div style="margin-bottom:18px">
-                  <label class="field-label" for="order-notes">Notes</label>
-                  <textarea class="input-field" id="order-notes" name="notes" rows="3" placeholder="Anything else we should know?" style="resize:vertical"></textarea>
+                  <label class="field-label" for="order-notes">Notes <span class="field-optional">optional</span></label>
+                  <textarea class="input-field" id="order-notes" name="notes" rows="3" maxlength="600" placeholder="Anything else we should know?" style="resize:vertical"></textarea>
+                  <p class="field-error" id="err-order-notes"></p>
                 </div>
                 <div id="order-error" class="order-error" style="display:none"></div>
                 <button type="submit" class="btn-primary" id="order-submit" style="width:100%;justify-content:center">Send order request ✦</button>

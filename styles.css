@@ -183,8 +183,9 @@ button{font-family:inherit}
 .hero-frame-wordmark img,
 .hero-frame-bonnie img{max-width:100%;max-height:100%;object-fit:contain}
 
-/* Welcome line under the wordmark frame (VP request); flows below the arch on mobile */
-.hero-welcome{position:absolute;left:14.4%;top:69%;width:36.3%;margin:0;text-align:center;font-size:clamp(11px,1.35vw,17.5px);line-height:1.5;color:var(--c-on-dark);text-shadow:0 1px 10px rgba(43,32,64,.4)}
+/* Welcome line under the wordmark frame (VP request); flows below the arch on mobile.
+   `top` clears the drawn gold border, not just the frame opening. */
+.hero-welcome{position:absolute;left:14.4%;top:74.5%;width:36.3%;margin:0;text-align:center;font-size:clamp(11px,1.35vw,17.5px);line-height:1.5;color:var(--c-on-dark);text-shadow:0 1px 10px rgba(43,32,64,.4)}
 
 /* Other pages: title inside the arch */
 .masthead-title{position:absolute;left:16%;right:16%;top:40%;text-align:center;font-size:16px}
@@ -203,7 +204,8 @@ button{font-family:inherit}
   /* gradient inset to the span between the drawn columns so the page sky
      stays visible through the keyed-out parts of the column strips */
   background-size:10.44% auto,10.44% auto,79.4% 100%;
-  padding:22px 12.5% 72px}
+  /* horizontal padding keeps content off the drawn vines (columns end at 10.44%) */
+  padding:22px 14.4% 72px}
 .page[data-page="home"] .page-body{--pb-a:#63A0BE;--pb-b:#4191B0;
   background-image:url('assets/frame/column-left.webp'),url('assets/frame/column-right.webp'),linear-gradient(180deg,var(--pb-a) 0,var(--pb-b) 720px)}
 .page[data-page="past"] .page-body{--pb-a:#6476BE;--pb-b:#BEC8E3}
@@ -212,9 +214,10 @@ button{font-family:inherit}
 
 .eyebrow{display:inline-block;font:600 11px/1.4 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted)}
 
-/* Desktop: first content section rises into the arch interior below the title */
+/* Desktop: first content section rises into the arch interior below the title,
+   so the arch doesn't leave a dead band under the page heading */
 @media (min-width:821px){
-  [data-theme="storybook"] .page:not([data-page="home"]) .page-body > section:first-child{margin-top:-9%}
+  [data-theme="storybook"] .page:not([data-page="home"]) .page-body > section:first-child{margin-top:-16%}
 }
 
 /* ── HOME ────────────────────────────────────────────────────────── */
@@ -245,6 +248,10 @@ button{font-family:inherit}
 .input-field{width:100%;padding:11px 14px;font-size:17px;color:var(--c-primary);background:var(--bg-card);border:var(--border-input);border-radius:10px;outline:none;font-family:inherit;transition:border-color .2s,box-shadow .2s}
 .input-field:focus{border-color:var(--c-accent-2);box-shadow:0 0 0 4px rgba(78,140,168,.14)}
 .field-label{display:block;font:600 11px/1.4 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--c-primary);margin-bottom:7px}
+.field-optional{font-weight:400;text-transform:none;letter-spacing:0;color:var(--c-muted-2);font-size:11px}
+.field-error{display:none;margin:6px 0 0;font-size:14px;color:#9E3B5C}
+.input-field.invalid{border-color:var(--c-accent)}
+.input-field.invalid:focus{border-color:var(--c-accent);box-shadow:0 0 0 4px rgba(201,111,142,.16)}
 
 /* ── PAST EVENTS ─────────────────────────────────────────────────── */
 .past-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding-top:8px}

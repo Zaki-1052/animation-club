@@ -58,8 +58,14 @@ const THEMES = ['holo', 'scrapbook', 'floral', 'forest', 'baroque'];
     await page.close();
   }
 
-  // Order form: add items, submit with unset key → expect explicit error
+  // Order form: exercise the real submit path against a mocked endpoint.
+  // The route intercept is mandatory — config.js holds a live Web3Forms key,
+  // so an un-mocked submit here would email the officers a fake order.
   const p2 = await newPage(1280, 900);
+  await p2.route('**/api.web3forms.com/**', r => r.fulfill({
+    status: 200, contentType: 'application/json',
+    body: JSON.stringify({ success: true, message: 'mocked' })
+  }));
   await p2.goto(BASE, { waitUntil: 'domcontentloaded', timeout: 60000 });
   await p2.waitForTimeout(800);
   await p2.evaluate(() => window.__go('merch'));
@@ -72,12 +78,21 @@ const THEMES = ['holo', 'scrapbook', 'floral', 'forest', 'baroque'];
   await p2.waitForTimeout(200);
   await p2.fill('#order-name', 'Test Person');
   await p2.fill('#order-email', 'test@ucsd.edu');
+
+  // Validation shot: blank-field errors, captured before anything is sent.
+  await p2.fill('#order-name', '');
   await p2.click('#order-submit');
-  await p2.waitForTimeout(300);
-  const errText = await p2.textContent('#order-error');
-  console.log('ORDER-ERROR-SHOWN:', JSON.stringify(errText && errText.trim().slice(0, 90)));
+  await p2.waitForTimeout(250);
+  console.log('ORDER-VALIDATION:', JSON.stringify((await p2.textContent('#err-order-name') || '').trim()));
   await p2.locator('#order-section').scrollIntoViewIfNeeded();
-  await p2.screenshot({ path: path.join(OUT, 'order-form-error.png') });
+  await p2.screenshot({ path: path.join(OUT, 'order-form-validation.png') });
+
+  // Success path (mocked). Waits past the MIN_SECONDS bot trap.
+  await p2.fill('#order-name', 'Test Person');
+  await p2.waitForTimeout(3200);
+  await p2.click('#order-submit');
+  await p2.waitForTimeout(600);
+  console.log('ORDER-SUCCESS-VIEW:', await p2.isVisible('#order-sent'));
   await p2.close();
 
   await browser.close();

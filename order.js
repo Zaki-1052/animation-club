@@ -23,6 +23,83 @@
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
+  // ── validation + light spam protection ────────────────────────────
+  var openedAt = Date.now();
+  var DAY_MS = 86400000;
+  var LINK_RE = /(https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|org|io|ru|xyz|top|shop|link|biz|info)\b)/i;
+
+  function fieldError(field, msg) {
+    var el = document.getElementById('err-order-' + field);
+    var input = document.getElementById('order-' + field);
+    if (el) { el.textContent = msg || ''; el.style.display = msg ? 'block' : 'none'; }
+    if (input) {
+      input.classList.toggle('invalid', !!msg);
+      if (msg) input.setAttribute('aria-invalid', 'true');
+      else input.removeAttribute('aria-invalid');
+    }
+  }
+
+  function clearFieldErrors() {
+    ['name', 'email', 'notes'].forEach(function(f) { fieldError(f, ''); });
+  }
+
+  // Rolling 24h submission log, kept in localStorage.
+  function recentSubmissions() {
+    var raw;
+    try { raw = JSON.parse(localStorage.getItem('ac-order-log') || '[]'); }
+    catch (e) { raw = []; }
+    var cutoff = Date.now() - DAY_MS;
+    return raw.filter(function(t) { return typeof t === 'number' && t > cutoff; });
+  }
+
+  function logSubmission() {
+    var log = recentSubmissions();
+    log.push(Date.now());
+    try { localStorage.setItem('ac-order-log', JSON.stringify(log)); } catch (e) {}
+  }
+
+  // Returns an error message, or '' when the form is good to send.
+  function validate() {
+    clearFieldErrors();
+    var ok = true;
+
+    if (!items.length) return 'Your order is empty — add at least one item first.';
+
+    var pieces = count();
+    var maxItems = ORDER.MAX_ITEMS || 40;
+    if (pieces > maxItems) {
+      return 'That\'s ' + pieces + ' pieces. For orders over ' + maxItems
+        + ', message us on Instagram so we can plan stock with you.';
+    }
+
+    var name = document.getElementById('order-name').value.trim();
+    var email = document.getElementById('order-email').value.trim();
+    var notes = document.getElementById('order-notes').value.trim();
+
+    if (name.length < 2) { fieldError('name', 'Please enter your name.'); ok = false; }
+
+    if (!email) {
+      fieldError('email', 'Please enter your email.'); ok = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      fieldError('email', 'That email doesn\'t look right.'); ok = false;
+    }
+
+    if (notes && LINK_RE.test(notes)) {
+      fieldError('notes', 'Please leave links out of the notes.'); ok = false;
+    }
+
+    if (!ok) return 'Check the highlighted fields above.';
+
+    if (recentSubmissions().length >= (ORDER.MAX_PER_DAY || 8)) {
+      return 'You\'ve sent a lot of requests today. Message us on Instagram and we\'ll sort it out.';
+    }
+
+    var minMs = (ORDER.MIN_SECONDS || 3) * 1000;
+    if (Date.now() - openedAt < minMs) return 'One moment — then hit send again.';
+
+    return '';
+  }
+
   function renderItems() {
     var el = document.getElementById('order-items');
     if (!el) return;
@@ -110,17 +187,24 @@
     renderItems();
     var form = document.querySelector('#order-form-wrap form');
     if (form) form.reset();
+    clearFieldErrors();
     showError('');
+    openedAt = Date.now();
   };
+
+  // Clear a field's error as soon as the visitor starts fixing it.
+  document.addEventListener('input', function(e) {
+    var id = e.target && e.target.id;
+    if (id && /^order-(name|email|notes)$/.test(id)) fieldError(id.slice(6), '');
+  });
 
   window.__submitOrder = function(e) {
     e.preventDefault();
     showError('');
 
-    if (!items.length) {
-      showError('Your order is empty — add at least one item first.');
-      return;
-    }
+    var problem = validate();
+    if (problem) { showError(esc(problem)); return; }
+
     if (!ORDER.ACCESS_KEY || ORDER.ACCESS_KEY === 'PASTE-KEY-HERE') {
       showError('The order form isn\'t set up yet (missing form key). DM us on Instagram '
         + '<a href="' + DATA.site.instagram.url + '" target="_blank" rel="noopener" style="font-weight:600;text-decoration:underline">' + esc(DATA.site.instagram.handle) + '</a>'
@@ -157,7 +241,6 @@
         subject: 'Merch order request from ' + name,
         from_name: name,
         email: email,
-        ccemail: ORDER.RECIPIENTS.slice(1).join(','),
         message: message,
         botcheck: false
       })
@@ -165,6 +248,7 @@
       return res.json().then(function(json) { return { ok: res.ok, json: json }; });
     }).then(function(r) {
       if (r.ok && r.json.success) {
+        logSubmission();
         document.getElementById('order-form-wrap').style.display = 'none';
         document.getElementById('order-sent').style.display = 'block';
         items = [];
