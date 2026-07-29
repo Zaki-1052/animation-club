@@ -9,6 +9,7 @@ window.AC = window.AC || {};
   var CS = CV('c-secondary');
   var CM2 = CV('c-muted-2');
   var CA2 = CV('c-accent-2');
+  var FD = CV('font-display');
   var FB = CV('font-body');
   var FM = CV('font-mono');
   var BC = CV('bg-card');
@@ -16,33 +17,25 @@ window.AC = window.AC || {};
   var SC = CV('shadow-card');
   var RC = CV('radius-card');
 
-  var PLAY_ICON = '<span style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(30,58,95,.2)"><span style="margin-left:4px;border-left:18px solid ' + CP + ';border-top:11px solid transparent;border-bottom:11px solid transparent"></span></span>';
-
-  function renderFilms() {
-    return DATA.films.map(function(f) {
-      return '<button onclick="window.__openLB(' + JSON.stringify(f).replace(/"/g, '&quot;') + ')" style="display:block;text-align:left;background:' + BC + ';border:none;border-radius:' + RC + ';overflow:hidden;cursor:pointer;box-shadow:' + SC + ';padding:0" class="card-hover">'
-        + '<div style="position:relative;aspect-ratio:16/9;background:' + f.bg + ';display:flex;align-items:center;justify-content:center">'
-        + PLAY_ICON
-        + '<span style="position:absolute;top:12px;right:12px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.85);font:600 10px/1 ' + FM + ';letter-spacing:.08em;color:' + CP + '">' + f.dur + '</span>'
-        + '</div>'
-        + '<div style="padding:14px 16px 16px">'
-        + '<div style="font-family:' + FB + ';font-weight:600;font-size:17px;color:' + CP + '">' + f.title + '</div>'
-        + '<div style="font-size:12px;color:' + CM2 + ';margin-top:3px">' + f.meta + '</div>'
-        + '</div></button>';
-    }).join('');
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  function renderGallery() {
-    return DATA.gallery.map(function(art) {
-      return '<button onclick="window.__openLB(' + JSON.stringify(art).replace(/"/g, '&quot;') + ')" style="break-inside:avoid;margin:0 0 18px;width:100%;display:block;background:' + BC + ';border:none;border-radius:16px;overflow:hidden;cursor:pointer;box-shadow:' + SC + ';padding:0" class="card-hover">'
-        + '<div style="aspect-ratio:' + art.ar + ';background:' + art.bg + ';position:relative">'
-        + '<span style="position:absolute;bottom:10px;left:12px;font:600 9px/1 ' + FM + ';letter-spacing:.1em;color:rgba(30,58,95,.55);text-transform:uppercase">placeholder</span>'
-        + '</div>'
-        + '<div style="padding:11px 13px">'
-        + '<div style="font-family:' + FB + ';font-weight:600;font-size:14px;color:' + CP + '">' + art.title + '</div>'
-        + '<div style="font-size:11px;color:' + CM2 + ';margin-top:2px">' + art.meta + '</div>'
-        + '</div></button>';
+  function lbAttr(item) {
+    return JSON.stringify(item).replace(/"/g, '&quot;');
+  }
+
+  // Nav — desktop buttons / mobile links, both driven by config.PAGES.
+  function renderNav(mode) {
+    var pages = DATA.config.PAGES;
+    var cls = mode === 'mobile' ? 'mobile-link' : 'navlink';
+    var html = pages.map(function(p) {
+      return '<button class="' + cls + '" data-nav="' + p.key + '" onclick="window.__go(\'' + p.key + '\')">' + esc(p.label) + '</button>';
     }).join('');
+    if (mode === 'mobile') {
+      html += '<a class="mobile-link" href="' + DATA.site.instagram.url + '" target="_blank" rel="noopener" style="font-weight:600;background:rgba(143,95,32,.08);justify-content:center;margin-top:6px">Follow on Instagram · ' + esc(DATA.site.instagram.handle) + '</a>';
+    }
+    return html;
   }
 
   function renderNavCards() {
@@ -50,107 +43,110 @@ window.AC = window.AC || {};
       return '<button onclick="window.__go(\'' + nc.key + '\')" style="position:relative;text-align:left;background:' + BC + ';border:none;border-radius:' + RC + ';padding:22px;cursor:pointer;overflow:hidden;box-shadow:' + SC + '" class="card-hover-sm">'
         + '<span style="position:absolute;top:0;left:0;right:0;height:5px;background:' + nc.bg + '"></span>'
         + '<span style="display:inline-flex;width:46px;height:46px;border-radius:14px;background:' + nc.bg + ';align-items:center;justify-content:center;font-size:22px;margin-bottom:14px">' + nc.glyph + '</span>'
-        + '<div style="font-family:' + FB + ';font-weight:600;font-size:19px;color:' + CP + ';margin-bottom:6px">' + nc.title + '</div>'
-        + '<div style="font-size:13px;color:' + CS + ';line-height:1.55">' + nc.desc + '</div>'
-        + '<div style="margin-top:14px;font:600 11px/1 ' + FM + ';letter-spacing:.12em;text-transform:uppercase;color:' + CA2 + '">' + nc.label + ' →</div>'
+        + '<div style="font-family:' + FD + ';font-weight:600;font-size:20px;color:' + CP + ';margin-bottom:6px">' + esc(nc.title) + '</div>'
+        + '<div style="font-size:15px;color:' + CS + ';line-height:1.5">' + esc(nc.desc) + '</div>'
+        + '<div style="margin-top:14px;font:600 11px/1 ' + FM + ';letter-spacing:.12em;text-transform:uppercase;color:' + CA2 + '">' + esc(nc.label) + ' →</div>'
         + '</button>';
     }).join('');
   }
 
-  function renderTimeline() {
-    return DATA.timeline.map(function(t) {
-      return '<div style="position:relative;margin-bottom:32px">'
-        + '<span style="position:absolute;left:-44px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--holo);box-shadow:0 0 0 4px ' + BC + ',0 2px 8px rgba(30,58,95,.18)"></span>'
-        + '<div style="font:600 12px/1 ' + FM + ';letter-spacing:.14em;color:' + CA2 + ';margin-bottom:6px">' + t.year + '</div>'
-        + '<div style="font-family:' + FB + ';font-weight:600;font-size:20px;color:' + CP + ';margin-bottom:6px">' + t.title + '</div>'
-        + '<p style="font-size:14px;color:' + CS + ';margin:0">Lorem ipsum placeholder.</p>'
-        + '</div>';
-    }).join('');
-  }
-
-  function renderFounders() {
-    return DATA.founders.map(function(f) {
-      return '<div style="background:' + BC + ';border-radius:' + RC + ';padding:24px;box-shadow:' + SC + ';position:relative;overflow:hidden" class="card-hover-sm">'
-        + '<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">'
-        + '<span style="width:54px;height:54px;border-radius:50%;background:' + f.bg + ';display:flex;align-items:center;justify-content:center;font-family:' + FB + ';font-weight:700;font-size:18px;color:' + CP + ';box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)">' + f.initials + '</span>'
-        + '<div>'
-        + '<div style="font-family:' + FB + ';font-weight:600;font-size:18px;color:' + CP + '">' + f.name + '</div>'
-        + '<div style="font:600 11px/1 ' + FM + ';letter-spacing:.1em;text-transform:uppercase;color:' + CM2 + ';margin-top:3px">' + f.role + '</div>'
-        + '</div></div>'
-        + '<p style="font-size:14px;color:' + CS + ';margin:0">Lorem ipsum dolor sit amet. Placeholder founder bio.</p>'
-        + '</div>';
-    }).join('');
-  }
-
-  function renderOfficers() {
-    var L = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.';
-    return DATA.officers.map(function(o) {
-      return '<div style="background:' + BC + ';border-radius:' + RC + ';overflow:hidden;box-shadow:' + SC + '" class="card-hover">'
-        + '<div style="height:96px;background:' + o.bg + ';position:relative">'
-        + '<span style="position:absolute;left:24px;bottom:-28px;width:64px;height:64px;border-radius:50%;background:' + BC + ';display:flex;align-items:center;justify-content:center;font-family:' + FB + ';font-weight:700;font-size:20px;color:' + CP + ';box-shadow:0 4px 14px rgba(30,58,95,.18)">' + o.initials + '</span>'
-        + '</div>'
-        + '<div style="padding:38px 22px 22px">'
-        + '<div style="font-family:' + FB + ';font-weight:600;font-size:18px;color:' + CP + '">' + o.name + '</div>'
-        + '<div style="font:600 11px/1 ' + FM + ';letter-spacing:.1em;text-transform:uppercase;color:' + CA2 + ';margin:5px 0 12px">' + o.role + '</div>'
-        + '<p style="font-size:13px;color:' + CS + ';margin:0 0 14px">' + L + '</p>'
-        + '<a href="' + o.link + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font:600 12px/1 ' + FM + ';letter-spacing:.06em;color:' + CP + ';padding:7px 13px;border-radius:999px;border:1.5px solid rgba(127,180,217,.4);text-decoration:none;transition:background .2s" onmouseover="this.style.background=\'var(--holo)\';this.style.borderColor=\'transparent\'" onmouseout="this.style.background=\'none\';this.style.borderColor=\'rgba(127,180,217,.4)\'">Portfolio ↗</a>'
+  // Past events — one card per category, VP copy verbatim.
+  function renderPast() {
+    return DATA.past.map(function(cat) {
+      var body = '';
+      if (cat.intro) {
+        body += '<p style="font-size:16px;color:' + CS + ';margin:0 0 8px">' + esc(cat.intro) + '</p>';
+      }
+      if (cat.items) {
+        body += '<ul class="past-list">' + cat.items.map(function(it) {
+          return '<li>' + esc(it) + '</li>';
+        }).join('') + '</ul>';
+      }
+      if (cat.body) {
+        body += '<p style="font-size:16px;color:' + CS + ';margin:0">' + esc(cat.body) + '</p>';
+      }
+      return '<div class="card-hover" style="background:' + BC + ';border-radius:' + RC + ';overflow:hidden;box-shadow:' + SC + '">'
+        + '<span style="display:block;height:5px;background:' + cat.bg + '"></span>'
+        + '<div style="padding:20px 22px 22px">'
+        + '<span style="display:inline-block;padding:4px 11px;border-radius:999px;background:' + BI + ';font:600 10px/1.4 ' + FM + ';letter-spacing:.1em;text-transform:uppercase;color:' + CA2 + ';margin-bottom:10px">' + esc(cat.kind) + '</span>'
+        + '<div style="font-family:' + FD + ';font-weight:600;font-size:21px;color:' + CP + ';margin-bottom:8px">' + esc(cat.title) + '</div>'
+        + body
         + '</div></div>';
     }).join('');
   }
 
-  function renderPast() {
-    return DATA.past.map(function(e) {
-      return '<button onclick="window.__openLB(' + JSON.stringify({title:e.title,meta:e.kind,bg:e.bg}).replace(/"/g, '&quot;') + ')" style="text-align:left;background:' + BC + ';border:none;border-radius:' + RC + ';overflow:hidden;cursor:pointer;box-shadow:' + SC + ';padding:0" class="card-hover">'
-        + '<div style="aspect-ratio:4/3;background:' + e.bg + ';position:relative">'
-        + '<span style="position:absolute;top:12px;left:12px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.9);font:600 10px/1 ' + FM + ';letter-spacing:.1em;text-transform:uppercase;color:' + CP + '">' + e.kind + '</span>'
-        + '</div>'
-        + '<div style="padding:16px">'
-        + '<div style="font-family:' + FB + ';font-weight:600;font-size:17px;color:' + CP + '">' + e.title + '</div>'
-        + '<div style="font:600 11px/1 ' + FM + ';color:' + CM2 + ';margin:5px 0 9px">' + e.date + '</div>'
-        + '<p style="font-size:13px;color:' + CS + ';margin:0">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>'
-        + '</div></button>';
-    }).join('');
+  // Fall events — "Next up" banner.
+  function renderFallNext() {
+    var ev = DATA.fallNext;
+    if (!ev) return '';
+    return '<div style="position:relative;background:' + BC + ';border-radius:var(--radius-card-lg);padding:22px 26px;box-shadow:var(--shadow-elevated);display:flex;align-items:center;gap:20px;flex-wrap:wrap" class="card-hover-sm">'
+      + '<div style="text-align:center;border-radius:12px;background:' + ev.bg + ';padding:12px 16px;min-width:76px">'
+      + '<div style="font:700 13px/1.3 ' + FM + ';letter-spacing:.1em;text-transform:uppercase;color:' + CP + '">' + ev.mon + '</div>'
+      + '<div style="font-family:' + FD + ';font-weight:700;font-size:28px;color:' + CP + ';line-height:1.1">' + ev.day + '</div>'
+      + '</div>'
+      + '<div style="flex:1;min-width:200px">'
+      + '<span style="display:inline-flex;align-items:center;gap:8px;font:600 11px/1.4 ' + FM + ';letter-spacing:.14em;text-transform:uppercase;color:' + CM2 + '">'
+      + '<span style="width:8px;height:8px;border-radius:50%;background:var(--c-green);animation:dotpulse 2s infinite"></span>Next up</span>'
+      + '<div style="font-family:' + FD + ';font-weight:600;font-size:22px;color:' + CP + ';margin-top:6px">' + esc(ev.title) + '</div>'
+      + '</div></div>';
   }
 
+  // Fall events — schedule rows.
   function renderFall() {
     return DATA.fall.map(function(ev) {
-      return '<div style="display:grid;grid-template-columns:96px 1fr auto;gap:18px;align-items:center;background:' + BC + ';border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:' + SC + '" class="card-hover-sm">'
-        + '<div style="text-align:center;border-radius:12px;background:' + ev.bg + ';padding:12px 8px">'
-        + '<div style="font:700 13px/1 ' + FM + ';letter-spacing:.1em;text-transform:uppercase;color:' + CP + '">' + ev.mon + '</div>'
-        + '<div style="font-family:' + FB + ';font-weight:700;font-size:26px;color:' + CP + ';line-height:1">' + ev.day + '</div>'
+      return '<div style="display:grid;grid-template-columns:84px 1fr auto;gap:16px;align-items:center;background:' + BC + ';border-radius:14px;padding:14px 16px;margin-bottom:12px;box-shadow:' + SC + '" class="card-hover-sm">'
+        + '<div style="text-align:center;border-radius:10px;background:' + ev.bg + ';padding:9px 6px">'
+        + '<div style="font:700 12px/1.3 ' + FM + ';letter-spacing:.1em;text-transform:uppercase;color:' + CP + '">' + ev.mon + '</div>'
+        + '<div style="font-family:' + FD + ';font-weight:700;font-size:24px;color:' + CP + ';line-height:1.1">' + ev.day + '</div>'
         + '</div>'
-        + '<div>'
-        + '<div style="font-family:' + FB + ';font-weight:600;font-size:18px;color:' + CP + '">' + ev.title + '</div>'
-        + '<div style="font:600 11px/1 ' + FM + ';color:' + CM2 + ';margin:4px 0 6px">' + ev.time + ' · ' + ev.place + '</div>'
-        + '<p style="font-size:13px;color:' + CS + ';margin:0">' + ev.body + '</p>'
-        + '</div>'
-        + '<span style="padding:5px 12px;border-radius:999px;background:' + BI + ';font:600 10px/1 ' + FM + ';letter-spacing:.08em;text-transform:uppercase;color:' + CA2 + ';white-space:nowrap">' + ev.tag + '</span>'
+        + '<div style="font-family:' + FB + ';font-weight:500;font-size:18px;color:' + CP + '">' + esc(ev.title) + '</div>'
+        + '<span style="padding:5px 12px;border-radius:999px;background:' + BI + ';font:600 10px/1.4 ' + FM + ';letter-spacing:.08em;text-transform:uppercase;color:' + CA2 + ';white-space:nowrap">' + esc(ev.tag) + '</span>'
         + '</div>';
     }).join('');
   }
 
+  // Merch — grouped product cards with add-to-order controls.
   function renderMerch() {
-    return DATA.merch.map(function(m) {
-      return '<button onclick="window.__openLB(' + JSON.stringify({title:m.name,meta:m.desc,bg:m.bg}).replace(/"/g, '&quot;') + ')" style="text-align:left;background:' + BC + ';border:none;border-radius:' + RC + ';overflow:hidden;cursor:pointer;box-shadow:' + SC + ';padding:0" class="card-hover">'
-        + '<div style="aspect-ratio:1;background:' + m.bg + ';display:flex;align-items:center;justify-content:center;font-size:46px">' + m.glyph + '</div>'
-        + '<div style="padding:16px">'
-        + '<div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">'
-        + '<span style="font-family:' + FB + ';font-weight:600;font-size:16px;color:' + CP + '">' + m.name + '</span>'
-        + '<span style="font:700 14px/1 ' + FM + ';color:' + CP + '">' + m.price + '</span>'
+    var M = DATA.merch;
+    var html = '';
+    var lastGroup = null;
+    M.products.forEach(function(p, i) {
+      if (p.group !== lastGroup) {
+        if (lastGroup !== null) html += '</div>';
+        html += '<h2 class="merch-group-title">' + esc(p.group) + '</h2><div class="merch-grid">';
+        lastGroup = p.group;
+      }
+      var lb = lbAttr({ title: p.name, meta: '$' + p.price, img: p.img });
+      var imgs = '<img class="merch-img-front' + (p.imgBack ? ' has-back' : '') + '" src="' + p.img + '" alt="' + esc(p.name) + '" loading="lazy">';
+      if (p.imgBack) {
+        imgs += '<img class="merch-img-back" src="' + p.imgBack + '" alt="' + esc(p.name) + ' — back" loading="lazy">';
+      }
+      var size = '';
+      if (p.sized) {
+        size = '<select class="input-field" id="size-' + p.id + '" aria-label="Size" style="padding:7px 10px;font-size:15px;margin-bottom:9px">'
+          + M.sizes.map(function(s) { return '<option>' + s + '</option>'; }).join('')
+          + '</select>';
+      }
+      html += '<div class="card-hover" style="background:' + BC + ';border-radius:' + RC + ';overflow:hidden;box-shadow:' + SC + ';display:flex;flex-direction:column">'
+        + '<button class="merch-img-wrap" onclick="window.__openLB(' + lb + ')" style="background:none;border:none;cursor:zoom-in;width:100%" aria-label="View ' + esc(p.name) + '">' + imgs + '</button>'
+        + '<div style="padding:12px 15px 15px;display:flex;flex-direction:column;flex:1">'
+        + '<div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:9px">'
+        + '<span style="font-family:' + FB + ';font-weight:600;font-size:17px;color:' + CP + '">' + esc(p.name) + '</span>'
+        + '<span style="font:700 14px/1.4 ' + FM + ';color:' + CP + '">$' + p.price + '</span>'
         + '</div>'
-        + '<p style="font-size:12px;color:' + CM2 + ';margin:7px 0 0">' + m.desc + '</p>'
-        + '</div></button>';
-    }).join('');
+        + size
+        + '<button class="btn-add" onclick="window.__addToOrder(\'' + p.id + '\')" style="margin-top:auto;padding:9px 14px;border-radius:999px;background:' + BI + ';border:1.5px solid rgba(143,95,32,.35);color:' + CP + ';font-family:' + FB + ';font-weight:600;font-size:15px;cursor:pointer;transition:background .2s">Add to order ✦</button>'
+        + '</div></div>';
+    });
+    if (lastGroup !== null) html += '</div>';
+    return html;
   }
 
   window.AC.renderers = {
-    renderFilms: renderFilms,
-    renderGallery: renderGallery,
+    renderNav: renderNav,
     renderNavCards: renderNavCards,
-    renderTimeline: renderTimeline,
-    renderFounders: renderFounders,
-    renderOfficers: renderOfficers,
     renderPast: renderPast,
+    renderFallNext: renderFallNext,
     renderFall: renderFall,
     renderMerch: renderMerch
   };

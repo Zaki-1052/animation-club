@@ -71,6 +71,7 @@
   --border-section: 1px solid rgba(232,131,107,.08);
   --border-input: 2px solid #FFF0E5;
   --nav-accent-height: 5px;
+  --root-bg: linear-gradient(180deg,var(--bg-page) 0%,var(--bg-page-end) 60%);
 
   --body-pattern: none;
 }
@@ -113,6 +114,7 @@
 /* Soft organic card borders */
 [data-theme="floral"] .card-hover,
 [data-theme="floral"] .card-hover-sm {
+  position: relative;
   border: 2px solid rgba(232,131,107,.1) !important;
 }
 
@@ -143,20 +145,15 @@
   border-radius: 16px !important;
 }
 
-/* More generous spacing on hero */
-[data-theme="floral"] .hero-grid {
-  gap: 56px !important;
-}
-
 /* Warm cream nav accent strip with flower pattern */
-[data-theme="floral"] #root > div:nth-child(2) > div:first-child {
+[data-theme="floral"] .nav-accent {
   background: linear-gradient(90deg,
     #E8836B,#F5D76E,#88C9A0,#7BB8D0,#C4A0D0,#E8836B
   ) !important;
 }
 
 /* Soft border on hero image */
-[data-theme="floral"] .hero-grid > div:last-child > div:last-child {
+[data-theme="floral"] .hero-frame-bonnie {
   border: 3px solid rgba(245,215,110,.3) !important;
   border-radius: 32px !important;
 }
@@ -172,11 +169,6 @@
   padding: 10px 0 4px;
   overflow: hidden;
   white-space: nowrap;
-}
-
-/* Timeline gets warm color */
-[data-theme="floral"] #timeline-list {
-  border-image: linear-gradient(to bottom, #E8836B, #F5D76E, #88C9A0) 1 !important;
 }
 
 /* Tags get warm background */
@@ -196,9 +188,8 @@
   border-radius: 28px !important;
 }
 
-/* Sparkles become flowers */
-[data-theme="floral"] .twinkle:nth-child(1)::after { content: ''; }
-[data-theme="floral"] .twinkle:nth-child(5) { font-size: 24px !important; }
+/* Sparkles grow a little */
+[data-theme="floral"] .twinkle { font-size: 24px !important; }
 
 /* Theme switcher */
 [data-theme="floral"] #theme-switcher {

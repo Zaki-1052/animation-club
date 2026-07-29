@@ -1,0 +1,11 @@
+for the home page can u have this image "animation club" in the left box and the gif on the right box
+use the frame in homepage for the bg: files/website background/homepage.png
+then the @files/labelCOLOR-ani.png on the left frame and the @files/bonnie-homepage.gif in the right box
+
+have just the homepage, fall events, past events, and merch for now (and hide the other pages)
+
+you can make the merch requests a form, fancy if you want, make the emails go to:
+a8salazar@ucsd.edu and kmatsuoka@ucsd.edu and r8lau@ucsd.edu
+no existing system: "folks finished designed merch like two days ago and we havent really pushed out any orders since it was fairly recent"
+
+Some of pages like officer info require officers to submit info so i am hoping we can hide it under needed

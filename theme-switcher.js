@@ -1,14 +1,17 @@
 // theme-switcher.js
 (function() {
   var THEMES = [
-    { id: 'default', name: 'Default', swatch: 'linear-gradient(135deg,#FFD0DC,#C2E6F6,#E2DDFB)', file: '' },
+    { id: 'storybook', name: 'Storybook', swatch: 'linear-gradient(135deg,#E39FA0,#9C8E70,#5298B5)', file: '' },
+    { id: 'holo', name: 'Holographic', swatch: 'linear-gradient(135deg,#FFD0DC,#C2E6F6,#E2DDFB)', file: 'themes/holo.css' },
     { id: 'scrapbook', name: 'Scrapbook', swatch: 'linear-gradient(135deg,#E8788A,#F4C2C2,#8FBC8F)', file: 'themes/scrapbook.css' },
     { id: 'floral', name: 'Floral Garden', swatch: 'linear-gradient(135deg,#E8836B,#F5D76E,#FFF8F0)', file: 'themes/floral.css' },
     { id: 'forest', name: 'Enchanted Forest', swatch: 'linear-gradient(135deg,#1a3a2a,#2d5a3d,#c9a84c)', file: 'themes/forest.css' },
     { id: 'baroque', name: 'Baroque Fairytale', swatch: 'linear-gradient(135deg,#4a7c59,#d4a843,#e8a0bf)', file: 'themes/baroque.css' }
   ];
 
-  var current = localStorage.getItem('ac-theme') || 'default';
+  var current = localStorage.getItem('ac-theme') || 'storybook';
+  // Saved ids from older builds (e.g. 'default') fall back to the site default.
+  if (!THEMES.some(function(t) { return t.id === current; })) current = 'storybook';
   var collapsed = false;
 
   function applyTheme(id) {
@@ -19,7 +22,14 @@
     var link = document.getElementById('theme-css');
     var theme = THEMES.find(function(t) { return t.id === id; });
     if (link && theme) {
-      link.href = theme.file;
+      if (theme.file) {
+        link.disabled = false;
+        link.href = theme.file;
+      } else {
+        // Base theme lives in styles.css — no extra sheet to load.
+        link.disabled = true;
+        link.removeAttribute('href');
+      }
     }
 
     updateSwitcher();

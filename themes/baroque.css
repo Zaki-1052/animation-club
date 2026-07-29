@@ -89,10 +89,11 @@
       rgba(184,90,122,.03) 0%,
       transparent 50%
     );
+  --root-bg: linear-gradient(180deg,var(--bg-page) 0%,var(--bg-page-end) 60%);
 }
 
 /* Ornate gold nav accent */
-[data-theme="baroque"] #root > div:nth-child(2) > div:first-child {
+[data-theme="baroque"] .nav-accent {
   background: linear-gradient(90deg,
     transparent 0%,
     #4A7C59 10%,
@@ -151,7 +152,7 @@
 }
 
 /* Hero section ornate frame */
-[data-theme="baroque"] .hero-grid > div:last-child > div:last-child {
+[data-theme="baroque"] .hero-frame-bonnie {
   border: 3px solid rgba(212,168,67,.25) !important;
   border-radius: 20px !important;
   box-shadow:
@@ -196,18 +197,6 @@
 @keyframes scrollRabbits {
   0% { transform: translateX(0); }
   100% { transform: translateX(-120px); }
-}
-
-/* Ornate timeline */
-[data-theme="baroque"] #timeline-list {
-  border-image: linear-gradient(to bottom,
-    #4A7C59,
-    #D4A843,
-    #B85A7A,
-    #D4A843,
-    #4A7C59
-  ) 1 !important;
-  border-left-width: 4px !important;
 }
 
 /* Gold-accent buttons */
@@ -271,18 +260,6 @@
 [data-theme="baroque"] .twinkle {
   font-family: serif !important;
   filter: blur(0.3px);
-}
-
-/* Hero image ornate tag */
-[data-theme="baroque"] .hero-grid > div:last-child > div:last-child > div {
-  border: 1px solid rgba(212,168,67,.3) !important;
-  font-family: 'Cinzel', serif !important;
-  letter-spacing: .08em !important;
-}
-
-/* Membership badge baroque */
-[data-theme="baroque"] .hero-grid > div:first-child > div:last-child {
-  border: 1px solid rgba(212,168,67,.25) !important;
 }
 
 /* Footer social links */

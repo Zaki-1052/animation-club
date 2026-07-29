@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static website for the UC San Diego Animation Club. Vanilla HTML/CSS/JS with no build tools, bundler, or package manager. Currently a prototype with placeholder content — all copy is lorem ipsum and should stay that way until a human provides real content.
+Static website for the UC San Diego Animation Club. Vanilla HTML/CSS/JS with no build tools, bundler, or package manager. The site now carries real club content (events, merch, prices) supplied by the club VP; source assets live in `files/` and copy facts in `website-information.md`. Hidden pages (history, officers, contact) still hold placeholders until officers provide content.
 
 ## Development
 
@@ -20,79 +20,87 @@ No build step, no linting, no tests.
 
 ## Architecture
 
-**Single-page app via class toggling.** Pages are `<div class="page" data-page="...">` elements in `index.html`. The global `window.__go(page)` function (defined in `app.js`) toggles the `.active` class to show/hide pages. Navigation buttons call `__go()` directly via `onclick` attributes. There is no URL-based routing.
+**Single-page app via class toggling.** Pages are `<div class="page" data-page="...">` elements in `index.html`. The global `window.__go(page)` function (defined in `app.js`) toggles the `.active` class to show/hide pages. There is no URL-based routing.
 
-**Data-driven rendering.** All content (films, officers, events, merch, etc.) lives in the `DATA` object in `data.js`. Each section has a `render*()` function in `renderers.js` that builds HTML strings from `DATA` and injects them via `innerHTML`. The global `window.__rerender()` calls all renderers — it runs on DOMContentLoaded and after theme switches.
+**Content layer.** All editable copy/data lives in `content/*.js` (each sets a slice of `window.AC.CONTENT`). Files are marked `EDIT ME` and flag VP-verbatim text vs. connective copy. `data.js` is a thin assembler: it reads `AC.CONTENT`, decorates entries with gradient tokens (`AC.G`), and produces `AC.DATA`.
 
-**Shared namespace.** The three JS files communicate via `window.AC`: `data.js` sets `AC.DATA` and `AC.G`, `renderers.js` reads those and sets `AC.renderers`, and `app.js` wires everything to the DOM.
+- `content/config.js` — visible pages (`PAGES` / `HIDDEN_PAGES`) and Web3Forms order delivery (`ORDER`, needs `ACCESS_KEY` pasted once)
+- `content/site.js` — welcome line, page headers, nav cards, footer, Instagram links
+- `content/events.js` — past event categories + Fall 2026 schedule
+- `content/merch.js` — products, prices, image paths, sizes, order-form copy
 
-**Theming system.** `styles.css` defines the default theme via CSS custom properties on `:root`. Each theme file in `themes/` (scrapbook, floral, forest, baroque) overrides these variables under a `[data-theme="..."]` selector. `theme-switcher.js` builds a floating theme picker, swaps the `<link id="theme-css">` href, sets `data-theme` on `<html>`, persists to localStorage, and calls `__rerender()` to refresh data-driven gradients.
+**Rendering.** Each section has a `render*()` function in `renderers.js` building HTML strings from `AC.DATA`, injected via `innerHTML` from `window.__rerender()` in `app.js` (runs on DOMContentLoaded and after theme switches; all lookups are null-guarded). The nav (desktop + mobile) is rendered from `config.PAGES` — hiding/showing a page is a one-line config change.
 
-**Key globals exposed on `window`:** `__go`, `__openLB`, `__closeLB`, `__toggleNav`, `__submitForm`, `__resetForm`, `__rerender`.
+**Merch orders.** `order.js` owns the order builder: `__addToOrder` from product cards, quantity/remove controls, a floating order bar, and `__submitOrder` which POSTs to Web3Forms. With no `ACCESS_KEY` configured it shows an explicit error pointing at Instagram — it never fakes success.
+
+**Page frame system (storybook theme).** Each visible page is a "storybook page" built from the VP's drawn art (`files/website-background/`, optimized into `assets/frame/`):
+
+- `.masthead` — per-page arch crop (`arch-*.webp`, art y0–2050 of 3640×4096) with the page title absolutely positioned inside the arch; the home masthead instead holds the wordmark and Bonnie gif positioned into the two drawn gold frames (percent coordinates measured from the art)
+- `.page-body` — continues the drawing: per-page interior gradient (`--pb-a`/`--pb-b`, sampled from each art file at the crop line) plus the vine-column strips (`column-*.webp`, sky keyed out, tile period art y2050–3692) tiling down both edges via `repeat-y`
+- the document backdrop (`--root-bg` on `.site-root`) is the drawn sky as a calibrated CSS gradient, so art edges and CSS meet seamlessly
+- under 820px the column strips drop and content goes full-width
+
+Non-storybook themes collapse this via the `:root:not([data-theme="storybook"])` block in `styles.css` (arch hidden, plain themed hero/headers).
+
+**Shared namespace.** `window.AC`: content files set `AC.CONTENT`, `data.js` sets `AC.DATA`/`AC.G`, `renderers.js` sets `AC.renderers`, `app.js`/`order.js` wire the DOM.
+
+**Key globals on `window`:** `__go`, `__openLB`, `__closeLB`, `__toggleNav`, `__rerender`, `__addToOrder`, `__orderQty`, `__orderRemove`, `__renderOrderItems`, `__submitOrder`, `__resetOrderForm`.
+
+**Script load order matters:** `content/config.js` → `content/site.js` → `content/events.js` → `content/merch.js` → `data.js` → `renderers.js` → `app.js` → `order.js` → `theme-switcher.js` → `oneko.plugin.js`
 
 ## File Roles
 
-- `index.html` — All page markup (home, history, officers, past events, fall events, merch, contact) plus the lightbox overlay
-- `data.js` — Gradient token shortcuts (`AC.G`) and the `DATA` object (`AC.DATA`) with all placeholder content
-- `renderers.js` — CSS variable helpers and 9 `render*()` functions that build HTML from DATA, exposed as `AC.renderers`
-- `app.js` — SPA routing, lightbox, scroll-reveal (IntersectionObserver), form handling, `__rerender()` orchestration
-- `styles.css` — Default theme variables, base styles, animations, responsive breakpoints
-- `theme-switcher.js` — Theme picker UI, theme application, localStorage persistence
-- `oneko.plugin.js` — Cursor-following cat animation (third-party plugin, self-contained)
-- `themes/*.css` — Theme overrides (each file is a complete set of CSS custom property overrides plus theme-specific decorative rules)
+- `index.html` — page markup (home, past, fall, merch + hidden history/officers/contact stubs), nav shell, footer, lightbox
+- `content/*.js` — all editable copy and data (see above)
+- `data.js` — assembles `AC.DATA` from content, adds gradient tokens
+- `renderers.js` — nav + section renderers exposed as `AC.renderers`
+- `app.js` — SPA routing, lightbox (image or gradient), scroll-reveal, static copy injection
+- `order.js` — merch order state, order bar, Web3Forms submission
+- `styles.css` — **storybook base theme** (`:root` tokens + all component styles + storybook decoration + non-storybook fallback layout)
+- `theme-switcher.js` — floating picker; storybook is default (`file:''`), others load `themes/*.css`
+- `themes/` — `holo.css` (the original holographic look), `scrapbook.css`, `floral.css`, `forest.css`, `baroque.css`
+- `assets/` — optimized production images (webp); regenerate from `files/` with ImageMagick, never edit by hand
+- `files/` — VP-supplied source art, photos, and the docx. Source of truth; never modified
+- `oneko.plugin.js` — cursor-following cat (third-party, self-contained)
 
-**Script load order matters:** `data.js` → `renderers.js` → `app.js` → `theme-switcher.js` → `oneko.plugin.js`
+## Visual Foundations (storybook default)
 
-## Visual Foundations
+**Palette** — sampled from the wordmark/arch art: plum ink `#3B2A52` on parchment `#FDF9F0`; accents rose `#C96F8E`, sky `#4E8CA8`, vine `#6E7D3F`; gold hairlines `rgba(143,95,32,…)`. Committed palette: plum ink, never navy; parchment, never white.
 
-**Color palette.** Navy ink (`--c-primary #1E3A5F`) on near-white surfaces. Personality comes from pastels: the 6-stop `--holo` gradient (pink → peach → mint → sky → lavender → pink) plus named duotones (`--g-pink/blue/mint/lav/coral/gold`). Accents are pink `#FF7E9A` and sky blue `#7FB4D9`.
+**Typography:** `--font-display` Fredoka (chunky-rounded, echoes the hand-lettered wordmark) · `--font-body` Patrick Hand (handwriting, the anti-slop signal) · `--font-mono` Cinzel (carved-stone eyebrow labels/dates).
 
-**Typography (4 roles):**
-- `--font-body` (Quicksand) — body text and most headings
-- `--font-display` (Playfair Display) — serif for hero h1/h2 sub-headings
-- `--font-logo` (Pacifico) — script wordmark, hero "Animation Club" line
-- `--font-mono` (system monospace) — eyebrow kickers, metadata, uppercase `.22em` tracking
+**Anti-slop DNA carried from scrapbook:** hard offset shadows (`2px 3px 0`, stacked-paper), slight card tilt on browsy grids only, physical-metaphor details (double gold frame borders echoing the drawn frames, `─ ✦ ─` footer rule), no gradient text.
 
-**The `--holo` gradient** is the signature element — it appears on buttons, nav accent strip, card top-bars, ambient blobs, and CTA bands. It is a highlight, not a wallpaper.
+**Shadow scale:** `--shadow-card` → `--shadow-card-hover` → `--shadow-elevated` → `--shadow-hero` → `--shadow-btn` (all hard-offset + soft tail under storybook).
 
-**Shadow elevation scale:** `--shadow-card` (resting) → `--shadow-card-hover` (lifted) → `--shadow-elevated` (panels) → `--shadow-hero` (glass) → `--shadow-btn` (buttons).
-
-**Ambient layer:** Fixed behind content — large blurred floaty blobs (11-14s morph) in pastel ambient colors, plus twinkling `✦` sparkles. Respects `[data-motion="0"]` kill-switch.
+**Ambient layer:** fixed sky-cloud blobs + `✦` sparkles behind the stage; respects `[data-motion="0"]`.
 
 ## Theme Architecture
 
-Five themes: `default` (holographic pastel), `scrapbook` (paper/dashed/washi), `floral` (warm ceramic garden), `forest` (dark enchanted, gold accents), `baroque` (parchment, ornate serif).
+Six themes: `storybook` (default, lives in `styles.css` `:root` — no FOUC), `holo`, `scrapbook`, `floral`, `forest`, `baroque`. Each theme file overrides the CSS custom properties (including `--root-bg`) under `[data-theme="..."]` plus its own decorative rules. Storybook-only decoration is scoped `[data-theme="storybook"]` inside `styles.css`.
 
-Each theme overrides **50+ CSS custom properties**: colors, gradients, backgrounds, typography (font-family), shapes (border-radius), shadows, ambient/sparkle colors, borders, and body patterns.
+Theme files must target the **stable hooks**, never DOM position: `.site-nav`, `.nav-accent`, `.site-footer`, `.ambient-layer`, `.masthead`, `.page-arch`, `.page-body`, `.hero-frame-wordmark`, `.hero-frame-bonnie`, `.masthead-title`.
 
-**Per-theme font stacks:**
-| Theme | `--font-display` | `--font-body` | `--font-logo` |
-|-------|-----------------|---------------|---------------|
-| Default | Playfair Display | Quicksand | Pacifico |
-| Scrapbook | Patrick Hand | Patrick Hand | Patrick Hand |
-| Floral | Fredoka | Quicksand | Fredoka |
-| Forest | Cinzel | Quicksand | Cinzel Decorative |
-| Baroque | Cinzel Decorative | Quicksand | Cinzel Decorative |
+### Adding a New Theme
 
-Each theme also has **decorative CSS rules** beyond variable overrides (e.g. scrapbook: dashed borders, rotated cards, washi tape; forest: gold glows, firefly sparkles; baroque: ornate flourishes, running rabbits footer).
+1. Create `themes/<name>.css` with `[data-theme="<name>"]` overriding the custom properties from `:root` in `styles.css` (including `--root-bg`)
+2. Add an entry to `THEMES` in `theme-switcher.js` with `id`, `name`, `swatch`, `file`
 
-## Voice & Tone (for placeholder text)
+### Re-enabling a Hidden Page
 
-Warm, casual, student-to-student. Copy speaks as "we" (the club) to "you" (the reader). Sentence case for headings. UPPERCASE reserved for mono eyebrow kickers. Middle dot `·` as separator. Sparkle `✦` ends CTAs. Emoji used sparingly as nav-card/merch glyphs only.
+1. Move its entry from `HIDDEN_PAGES` to `PAGES` in `content/config.js`
+2. Replace the placeholder stub in `index.html` with a real masthead + `.page-body` (add interior colors: a `.page[data-page="<key>"] .page-body` rule — `files/website-background/Officers.png` is already drawn for the officers page)
+3. Add its content to a `content/*.js` file and a renderer if data-driven
 
-**Do not write original AI-generated copy.** Always use lorem ipsum or clearly labeled placeholders. Real content will be provided by club members.
+## Voice & Tone
 
-## Adding a New Theme
+Warm, casual, student-to-student; "we" (the club) to "you" (the reader). Sentence case headings; UPPERCASE only in eyebrow kickers; `·` separators; `✦` ends CTAs; emoji sparingly (nav-card glyphs). VP-provided text ships verbatim (marked in content files).
 
-1. Create `themes/<name>.css` with a `[data-theme="<name>"]` selector overriding the CSS custom properties from `:root` in `styles.css`
-2. Add an entry to the `THEMES` array in `theme-switcher.js` with `id`, `name`, `swatch` gradient, and `file` path
-
-## Adding a New Page
-
-1. Add a `<div class="page" data-page="<key>">` section in `index.html`
-2. Add nav buttons with `onclick="window.__go('<key>')"` to both desktop and mobile nav
-3. If data-driven, add data to the `DATA` object in `data.js`, a `render*()` function in `renderers.js` (and export it in `AC.renderers`), then call it from `__rerender()` in `app.js`
+**Do not write original AI-sounding copy.** Connective copy must be minimal and follow `anti-ai-writing-style-guide.md` (binding). Anything the club hasn't supplied stays placeholder — real content comes from club members.
 
 ## Design Kit Reference
 
-The `Animation Club — Holographic UI Kit/` directory contains a design system export (from Claude Design) that documents the full token layer, React components, and visual guidelines. It is a reference, not a dependency — the live site is the source of truth. Useful for understanding design intent, token names, and component anatomy.
+The `Animation Club — Holographic UI Kit/` directory contains a design system export (from Claude Design) documenting the holo theme's token layer. Reference only — the live site is the source of truth.
+
+@website-information.md
+@requests.txt

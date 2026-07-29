@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="default">
+<html lang="en" data-theme="storybook">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Animation Club · UC San Diego</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Pacifico&family=Quicksand:wght@400;500;600;700&family=Patrick+Hand&family=Fredoka:wght@400;500;600;700&family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link id="theme-css" rel="stylesheet" href="">
 </head>
 <body>
-<div id="root" data-motion="1" style="position:relative;min-height:100vh;overflow:hidden;background:linear-gradient(180deg,var(--bg-page) 0%,var(--bg-page-end) 60%)">
+<div id="root" class="site-root" data-motion="1">
 
   <!-- ambient cloud + sparkle layer -->
-  <div style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden">
-    <div class="floaty" style="position:absolute;top:8%;left:-4%;width:340px;height:340px;background:radial-gradient(circle at 35% 35%,var(--ambient-1),rgba(255,208,220,0));filter:blur(8px);opacity:.6;animation:floaty 11s ease-in-out infinite"></div>
-    <div class="floaty" style="position:absolute;top:42%;right:-6%;width:420px;height:420px;background:radial-gradient(circle at 40% 40%,var(--ambient-2),rgba(194,230,246,0));filter:blur(10px);opacity:.55;animation:floaty 14s ease-in-out infinite reverse"></div>
-    <div class="floaty" style="position:absolute;bottom:4%;left:18%;width:300px;height:300px;background:radial-gradient(circle at 40% 40%,var(--ambient-3),rgba(226,221,251,0));filter:blur(9px);opacity:.5;animation:floaty 9s ease-in-out infinite"></div>
-    <div class="floaty" style="position:absolute;top:24%;left:42%;width:240px;height:240px;background:radial-gradient(circle at 40% 40%,var(--ambient-4),rgba(205,241,220,0));filter:blur(8px);opacity:.45;animation:floaty 13s ease-in-out infinite"></div>
+  <div class="ambient-layer">
+    <div class="floaty" style="position:absolute;top:-6%;left:-3%;width:420px;height:300px;background:radial-gradient(ellipse at 50% 50%,var(--ambient-1),transparent 70%);filter:blur(14px);opacity:.75;animation:floaty 16s ease-in-out infinite"></div>
+    <div class="floaty" style="position:absolute;top:-7%;right:-4%;width:460px;height:320px;background:radial-gradient(ellipse at 50% 50%,var(--ambient-2),transparent 70%);filter:blur(14px);opacity:.7;animation:floaty 18s ease-in-out infinite reverse"></div>
+    <div class="floaty" style="position:absolute;top:8%;left:-4%;width:340px;height:340px;background:radial-gradient(circle at 35% 35%,var(--ambient-1),transparent 70%);filter:blur(8px);opacity:.6;animation:floaty 11s ease-in-out infinite"></div>
+    <div class="floaty" style="position:absolute;top:42%;right:-6%;width:420px;height:420px;background:radial-gradient(circle at 40% 40%,var(--ambient-2),transparent 70%);filter:blur(10px);opacity:.55;animation:floaty 14s ease-in-out infinite reverse"></div>
+    <div class="floaty" style="position:absolute;bottom:4%;left:18%;width:300px;height:300px;background:radial-gradient(circle at 40% 40%,var(--ambient-3),transparent 70%);filter:blur(9px);opacity:.5;animation:floaty 9s ease-in-out infinite"></div>
+    <div class="floaty" style="position:absolute;top:24%;left:42%;width:240px;height:240px;background:radial-gradient(circle at 40% 40%,var(--ambient-4),transparent 70%);filter:blur(8px);opacity:.45;animation:floaty 13s ease-in-out infinite"></div>
     <div class="twinkle" style="position:absolute;top:16%;left:30%;color:var(--sparkle-1);font-size:20px;animation:twinkle 2.4s ease infinite">✦</div>
     <div class="twinkle" style="position:absolute;top:30%;right:14%;color:var(--sparkle-2);font-size:16px;animation:twinkle 3s ease infinite .4s">✦</div>
     <div class="twinkle" style="position:absolute;top:60%;left:8%;color:var(--sparkle-3);font-size:22px;animation:twinkle 2.8s ease infinite .8s">✦</div>
@@ -25,26 +28,18 @@
   </div>
 
   <!-- NAV -->
-  <div style="position:sticky;top:0;z-index:50;background:var(--bg-nav);backdrop-filter:blur(16px) saturate(1.5);-webkit-backdrop-filter:blur(16px) saturate(1.5);border-bottom:var(--border-nav)">
-    <div style="height:var(--nav-accent-height);background:var(--holo)"></div>
-    <div style="max-width:1240px;margin:0 auto;padding:11px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px">
-      <button onclick="window.__go('home')" style="display:flex;align-items:center;gap:12px;background:none;border:none;cursor:pointer;padding:0">
-        <img src="assets/animation-club-logo.jpg" alt="UCSD Animation Club logo" style="width:46px;height:46px;border-radius:14px;object-fit:cover;box-shadow:0 2px 10px rgba(127,180,217,.4)">
-        <span style="text-align:left;line-height:1.1">
-          <span style="display:block;font-family:var(--font-logo);font-weight:400;font-size:20px;color:var(--c-primary)">Animation Club</span>
-          <span style="display:block;font:600 9.5px/1 var(--font-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--c-muted);margin-top:2px">UC San Diego</span>
+  <div class="site-nav">
+    <div class="nav-accent"></div>
+    <div class="nav-inner">
+      <button class="brand" onclick="window.__go('home')">
+        <img src="assets/animation-club-logo.jpg" alt="UCSD Animation Club logo" class="brand-logo">
+        <span class="brand-text">
+          <span class="brand-name">Animation Club</span>
+          <span class="brand-sub">UC San Diego</span>
         </span>
       </button>
-      <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:flex-end">
-        <nav class="desktop-nav" style="display:flex;gap:20px;flex-wrap:wrap">
-          <button class="navlink" data-nav="home" onclick="window.__go('home')">Home</button>
-          <button class="navlink" data-nav="history" onclick="window.__go('history')">History</button>
-          <button class="navlink" data-nav="officers" onclick="window.__go('officers')">Officers</button>
-          <button class="navlink" data-nav="past" onclick="window.__go('past')">Past Events</button>
-          <button class="navlink" data-nav="fall" onclick="window.__go('fall')">Fall Events</button>
-          <button class="navlink" data-nav="merch" onclick="window.__go('merch')">Merch</button>
-          <button class="navlink" data-nav="contact" onclick="window.__go('contact')">Contact</button>
-        </nav>
+      <div class="nav-right">
+        <nav class="desktop-nav" id="desktop-nav"></nav>
         <a href="https://www.instagram.com/animation_at_ucsd/" target="_blank" rel="noopener" class="follow-btn follow-desktop">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 2c-2.7 0-3.05.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.25-1.22.6-1.77 1.16-.56.55-.9 1.1-1.16 1.77-.25.64-.42 1.37-.47 2.43C2.01 8.95 2 9.3 2 12s.01 3.05.06 4.12c.05 1.06.22 1.79.47 2.43.25.66.6 1.22 1.16 1.77.55.56 1.1.9 1.77 1.16.64.25 1.37.42 2.43.47C8.95 21.99 9.3 22 12 22s3.05-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.16c.56-.55.9-1.1 1.16-1.77.25-.64.42-1.37.47-2.43.05-1.07.06-1.42.06-4.12s-.01-3.05-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.16-1.77 4.9 4.9 0 0 0-1.77-1.16c-.64-.25-1.37-.42-2.43-.47C15.05 2.01 14.7 2 12 2Zm0 1.8c2.65 0 2.96.01 4.01.06.97.04 1.5.21 1.85.34.46.18.8.4 1.15.74.34.35.56.69.74 1.15.13.35.3.88.34 1.85.05 1.05.06 1.36.06 4.01s-.01 2.96-.06 4.01c-.04.97-.21 1.5-.34 1.85-.18.46-.4.8-.74 1.15-.35.34-.69.56-1.15.74-.35.13-.88.3-1.85.34-1.05.05-1.36.06-4.01.06s-2.96-.01-4.01-.06c-.97-.04-1.5-.21-1.85-.34a3.1 3.1 0 0 1-1.15-.74 3.1 3.1 0 0 1-.74-1.15c-.13-.35-.3-.88-.34-1.85-.05-1.05-.06-1.36-.06-4.01s.01-2.96.06-4.01c.04-.97.21-1.5.34-1.85.18-.46.4-.8.74-1.15.35-.34.69-.56 1.15-.74.35-.13.88-.3 1.85-.34C9.04 3.81 9.35 3.8 12 3.8Zm0 3.06A5.14 5.14 0 1 0 12 17.14 5.14 5.14 0 0 0 12 6.86Zm0 8.47A3.33 3.33 0 1 1 12 8.67a3.33 3.33 0 0 1 0 6.66Zm5.34-8.67a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"></path></svg>
           Follow
@@ -54,296 +49,199 @@
         </button>
       </div>
     </div>
-    <div class="mobile-menu" id="mobile-menu" style="display:none">
-      <button class="mobile-link" data-nav="home" onclick="window.__go('home')">Home</button>
-      <button class="mobile-link" data-nav="history" onclick="window.__go('history')">History</button>
-      <button class="mobile-link" data-nav="officers" onclick="window.__go('officers')">Officers</button>
-      <button class="mobile-link" data-nav="past" onclick="window.__go('past')">Past Events</button>
-      <button class="mobile-link" data-nav="fall" onclick="window.__go('fall')">Fall Events</button>
-      <button class="mobile-link" data-nav="merch" onclick="window.__go('merch')">Merch</button>
-      <button class="mobile-link" data-nav="contact" onclick="window.__go('contact')">Contact</button>
-      <a class="mobile-link" href="https://www.instagram.com/animation_at_ucsd/" target="_blank" rel="noopener" style="font-weight:600;background:rgba(127,180,217,.1);justify-content:center;margin-top:6px">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2c-2.7 0-3.05.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.25-1.22.6-1.77 1.16-.56.55-.9 1.1-1.16 1.77-.25.64-.42 1.37-.47 2.43C2.01 8.95 2 9.3 2 12s.01 3.05.06 4.12c.05 1.06.22 1.79.47 2.43.25.66.6 1.22 1.16 1.77.55.56 1.1.9 1.77 1.16.64.25 1.37.42 2.43.47C8.95 21.99 9.3 22 12 22s3.05-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.16c.56-.55.9-1.1 1.16-1.77.25-.64.42-1.37.47-2.43.05-1.07.06-1.42.06-4.12s-.01-3.05-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.16-1.77 4.9 4.9 0 0 0-1.77-1.16c-.64-.25-1.37-.42-2.43-.47C15.05 2.01 14.7 2 12 2Zm0 1.8c2.65 0 2.96.01 4.01.06.97.04 1.5.21 1.85.34.46.18.8.4 1.15.74.34.35.56.69.74 1.15.13.35.3.88.34 1.85.05 1.05.06 1.36.06 4.01s-.01 2.96-.06 4.01c-.04.97-.21 1.5-.34 1.85-.18.46-.4.8-.74 1.15-.35.34-.69.56-1.15.74-.35.13-.88.3-1.85.34-1.05.05-1.36.06-4.01.06s-2.96-.01-4.01-.06c-.97-.04-1.5-.21-1.85-.34a3.1 3.1 0 0 1-1.15-.74 3.1 3.1 0 0 1-.74-1.15c-.13-.35-.3-.88-.34-1.85-.05-1.05-.06-1.36-.06-4.01s.01-2.96.06-4.01c.04-.97.21-1.5.34-1.85.18-.46.4-.8.74-1.15.35-.34.69-.56 1.15-.74.35-.13.88-.3 1.85-.34C9.04 3.81 9.35 3.8 12 3.8Zm0 3.06A5.14 5.14 0 1 0 12 17.14 5.14 5.14 0 0 0 12 6.86Zm0 8.47A3.33 3.33 0 1 1 12 8.67a3.33 3.33 0 0 1 0 6.66Zm5.34-8.67a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"></path></svg>
-        Follow on Instagram
-      </a>
-    </div>
+    <div class="mobile-menu" id="mobile-menu" style="display:none"></div>
   </div>
 
-  <main style="position:relative;z-index:1">
+  <main class="stage">
 
     <!-- HOME -->
     <div class="page active" data-page="home">
-      <section class="hero-grid" style="max-width:1240px;margin:0 auto;padding:64px 24px 36px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center">
-        <div>
-          <span style="display:inline-flex;align-items:center;gap:9px;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:20px">
-            <span style="width:8px;height:8px;border-radius:50%;background:var(--holo);animation:dotpulse 2s ease infinite"></span>
-            UC San Diego · Student Org
-          </span>
-          <h1 style="font-family:var(--font-display);font-weight:700;font-size:clamp(2.8rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.02em;margin:0 0 18px;color:var(--c-primary)">
-            <span style="font-family:var(--font-logo);background:var(--hero-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Animation Club</span>
-            <div>UC San Diego.</div>
-          </h1>
-          <p style="font-size:18px;color:var(--c-secondary);max-width:50ch;margin:0 0 14px">Loreum ipsum dolor sit amet description text.</p>
-          <p style="font-size:13px;color:var(--c-muted-3);font-style:italic;margin:0 0 26px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&nbsp;</p>
-          <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
-            <button onclick="window.__go('past')" class="btn-primary">Watch our work →</button>
-            <a href="https://www.instagram.com/animation_at_ucsd/" target="_blank" rel="noopener" class="btn-outline">Join the club</a>
-          </div>
-          <div style="display:inline-flex;align-items:center;gap:9px;margin-top:26px;padding:7px 15px;border-radius:999px;background:var(--bg-card);border:1px solid rgba(127,180,217,.2);box-shadow:var(--shadow-card)">
-            <span style="width:8px;height:8px;border-radius:50%;background:var(--c-green);animation:dotpulse 2s ease infinite"></span>
-            <span style="font:600 11px/1 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--c-primary)">Membership · Open</span>
-          </div>
+      <div class="masthead">
+        <img class="page-arch" src="assets/frame/arch-home.webp" alt="" aria-hidden="true">
+        <div class="hero-frame-wordmark">
+          <img src="assets/wordmark.webp" alt="The Animation Club">
         </div>
-        <div style="position:relative;display:flex;justify-content:center">
-          <div style="position:absolute;inset:-8% -4%;background:var(--holo);filter:blur(46px);opacity:.55;border-radius:50%"></div>
-          <div style="position:relative;padding:18px;background:var(--bg-card-translucent);border:1px solid rgba(255,255,255,.8);border-radius:30px;box-shadow:var(--shadow-hero);backdrop-filter:blur(6px)">
-            <img src="assets/animation-club-logo.jpg" alt="UCSD Animation Club logo" style="display:block;width:min(360px,72vw);aspect-ratio:1;border-radius:var(--radius-card);object-fit:cover">
-            <div style="position:absolute;top:-16px;right:-14px;padding:8px 14px;background:var(--bg-card);border-radius:999px;box-shadow:0 6px 18px rgba(30,58,95,.18);font:600 11px/1 var(--font-mono);letter-spacing:.1em;color:var(--c-accent);transform:rotate(4deg)">@animation_at_ucsd</div>
-          </div>
+        <div class="hero-frame-bonnie">
+          <img src="assets/bonnie.webp" alt="Bonnie the pegasus holding a Welcome to Animation Club sign">
         </div>
-      </section>
-
-      <section class="reveal" style="max-width:1240px;margin:0 auto;padding:40px 24px">
-        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px">
-          <div>
-            <span style="display:block;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:10px">Showcase · 01</span>
-            <h2 style="font-family:var(--font-body);font-weight:600;font-size:34px;margin:0;color:var(--c-primary)">Featured films</h2>
+      </div>
+      <div class="page-body">
+        <section class="home-intro reveal">
+          <p class="home-welcome" id="home-welcome"></p>
+          <div class="home-ctas">
+            <button onclick="window.__go('fall')" class="btn-primary">Fall events ✦</button>
+            <a href="https://www.instagram.com/animation_at_ucsd/" target="_blank" rel="noopener" class="btn-outline">Follow @animation_at_ucsd</a>
           </div>
-          <button onclick="window.__go('past')" style="background:none;border:none;color:var(--c-accent-2);font-weight:600;font-size:14px;cursor:pointer">See all events →</button>
-        </div>
-        <div id="films-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px"></div>
-      </section>
-
-      <section class="reveal" style="max-width:1240px;margin:0 auto;padding:40px 24px">
-        <span style="display:block;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:10px">Showcase · 02</span>
-        <h2 style="font-family:var(--font-body);font-weight:600;font-size:34px;margin:0 0 6px;color:var(--c-primary)">Latest work</h2>
-        <p style="font-size:14px;color:var(--c-muted-2);margin:0 0 22px">Member art, sketches &amp; loops. <span style="font-style:italic">Gradient placeholders.</span></p>
-        <div id="gallery-grid" class="gallery-cols" style="columns:4;column-gap:18px"></div>
-      </section>
-
-      <section class="reveal" style="max-width:1240px;margin:0 auto;padding:40px 24px 64px">
-        <span style="display:block;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:10px">Explore</span>
-        <h2 style="font-family:var(--font-body);font-weight:600;font-size:34px;margin:0 0 22px;color:var(--c-primary)">Find your way around</h2>
-        <div id="nav-cards-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px"></div>
-      </section>
-    </div>
-
-    <!-- HISTORY -->
-    <div class="page" data-page="history">
-      <section style="max-width:1020px;margin:0 auto;padding:64px 24px 28px;text-align:center">
-        <span style="display:inline-block;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:16px">Our Story</span>
-        <h1 style="font-family:var(--font-body);font-weight:700;font-size:clamp(2.4rem,5vw,3.6rem);margin:0 0 16px;color:var(--c-primary)">History &amp; founding</h1>
-        <p style="font-size:17px;color:var(--c-secondary);max-width:60ch;margin:0 auto">Lorem ipsum dolor sit amet.</p>
-        <p style="font-style:italic;color:var(--c-muted-3);margin:4px auto 0">Placeholder history.</p>
-      </section>
-      <section class="reveal" style="max-width:760px;margin:0 auto;padding:30px 24px 20px">
-        <div id="timeline-list" style="position:relative;padding-left:34px;border-left:3px solid;border-image:var(--holo) 1"></div>
-      </section>
-      <section class="reveal" style="max-width:1100px;margin:0 auto;padding:30px 24px 64px">
-        <h2 style="font-family:var(--font-body);font-weight:600;font-size:30px;margin:0 0 6px;color:var(--c-primary)">The founders</h2>
-        <p style="font-size:13px;color:var(--c-muted-3);font-style:italic;margin:0 0 22px">Founder names &amp; bios are placeholders.</p>
-        <div id="founders-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px"></div>
-      </section>
-    </div>
-
-    <!-- OFFICERS -->
-    <div class="page" data-page="officers">
-      <section style="max-width:1020px;margin:0 auto;padding:64px 24px 28px;text-align:center">
-        <span style="display:inline-block;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:16px">The Team</span>
-        <h1 style="font-family:var(--font-body);font-weight:700;font-size:clamp(2.4rem,5vw,3.6rem);margin:0 0 16px;color:var(--c-primary)">Meet the officers</h1>
-        <p style="font-size:17px;color:var(--c-secondary);max-width:58ch;margin:0 auto 8px">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-        <p style="font-size:13px;color:var(--c-muted-3);font-style:italic;margin:0">Subheader placeholder text</p>
-      </section>
-      <section class="reveal" style="max-width:1180px;margin:0 auto;padding:24px 24px 64px">
-        <div id="officers-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px"></div>
-      </section>
+        </section>
+        <section class="reveal">
+          <div id="nav-cards-grid" class="nav-cards-grid"></div>
+        </section>
+      </div>
     </div>
 
     <!-- PAST EVENTS -->
     <div class="page" data-page="past">
-      <section style="max-width:1020px;margin:0 auto;padding:64px 24px 28px;text-align:center">
-        <span style="display:inline-block;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:16px">Archive</span>
-        <h1 style="font-family:var(--font-body);font-weight:700;font-size:clamp(2.4rem,5vw,3.6rem);margin:0 0 16px;color:var(--c-primary)">Past events</h1>
-        <p style="font-size:17px;color:var(--c-secondary);max-width:60ch;margin:0 auto">MAPS, animation jams, guest speakers, and figure-drawing nights. <span style="font-style:italic;color:var(--c-muted-3)">Details below are placeholders.</span></p>
-      </section>
-      <section class="reveal" style="max-width:1180px;margin:0 auto;padding:24px 24px 12px">
-        <button onclick="window.__openLB({title:'Spring Animation Jam — Recap',meta:'PLACEHOLDER DATE',bg:'linear-gradient(135deg,#FFD0DC,#C2E6F6,#E2DDFB)'})" class="featured-grid card-hover" style="display:grid;grid-template-columns:1.2fr 1fr;gap:0;width:100%;text-align:left;background:var(--bg-card);border:none;border-radius:var(--radius-card-lg);overflow:hidden;cursor:pointer;box-shadow:0 4px 16px rgba(30,58,95,.1)">
-          <div id="past-featured-bg" style="aspect-ratio:16/10;position:relative;display:flex;align-items:center;justify-content:center">
-            <span style="width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(30,58,95,.2)"><span style="margin-left:4px;border-left:18px solid var(--c-primary);border-top:11px solid transparent;border-bottom:11px solid transparent"></span></span>
-          </div>
-          <div style="padding:28px">
-            <span style="font:600 11px/1 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--c-accent)">Featured recap</span>
-            <div id="past-featured-title" style="font-family:var(--font-display);font-weight:700;font-size:26px;color:var(--c-primary);margin:10px 0 8px"></div>
-            <div id="past-featured-date" style="font:600 12px/1 var(--font-mono);color:var(--c-muted-2);margin-bottom:12px"></div>
-            <p style="font-size:14px;color:var(--c-secondary);margin:0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </button>
-      </section>
-      <section class="reveal" style="max-width:1180px;margin:0 auto;padding:20px 24px 64px">
-        <div id="past-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px"></div>
-      </section>
+      <div class="masthead">
+        <img class="page-arch" src="assets/frame/arch-past.webp" alt="" aria-hidden="true">
+        <div class="masthead-title">
+          <span class="eyebrow" id="past-eyebrow"></span>
+          <h1 class="page-title" id="past-title"></h1>
+        </div>
+      </div>
+      <div class="page-body">
+        <section class="reveal">
+          <div id="past-grid" class="past-grid"></div>
+        </section>
+      </div>
     </div>
 
     <!-- FALL EVENTS -->
     <div class="page" data-page="fall">
-      <section style="max-width:1020px;margin:0 auto;padding:64px 24px 28px;text-align:center">
-        <span style="display:inline-block;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:16px">Fall Quarter</span>
-        <h1 style="font-family:var(--font-body);font-weight:700;font-size:clamp(2.4rem,5vw,3.6rem);margin:0 0 16px;color:var(--c-primary)">What's coming up</h1>
-        <p style="font-size:17px;color:var(--c-secondary);max-width:58ch;margin:0 auto">Weekly meetups, workshops, and one big jam. <span style="font-style:italic;color:var(--c-muted-3)">Dates &amp; details are placeholders.</span></p>
-      </section>
-      <section class="reveal" style="max-width:1100px;margin:0 auto;padding:24px 24px 12px">
-        <div style="position:relative;border-radius:var(--radius-card-lg);overflow:hidden;background:var(--holo);padding:34px;box-shadow:0 12px 30px rgba(127,180,217,.3)">
-          <div style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
-            <div style="max-width:60ch">
-              <span style="display:inline-flex;align-items:center;gap:8px;font:600 11px/1 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--c-primary)">
-                <span style="width:8px;height:8px;border-radius:50%;background:var(--c-white);animation:dotpulse 2s infinite"></span>Next up
-              </span>
-              <div id="fall-next-title" style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--c-primary);margin:12px 0 8px"></div>
-              <div id="fall-next-info" style="font:600 13px/1 var(--font-mono);color:var(--c-secondary-dark);margin-bottom:10px"></div>
-              <p style="font-size:15px;color:var(--c-secondary-dark);margin:0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-            <button onclick="window.__go('contact')" style="white-space:nowrap;padding:14px 26px;border-radius:999px;background:var(--c-primary);color:var(--c-on-dark);border:none;font-weight:600;font-size:15px;cursor:pointer;transition:transform .2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">RSVP / ask us</button>
-          </div>
+      <div class="masthead">
+        <img class="page-arch" src="assets/frame/arch-fall.webp" alt="" aria-hidden="true">
+        <div class="masthead-title">
+          <span class="eyebrow" id="fall-eyebrow"></span>
+          <h1 class="page-title" id="fall-title"></h1>
         </div>
-      </section>
-      <section class="reveal" style="max-width:900px;margin:0 auto;padding:26px 24px 64px">
-        <div id="fall-list"></div>
-      </section>
+      </div>
+      <div class="page-body">
+        <section class="reveal">
+          <div id="fall-next" class="fall-next"></div>
+        </section>
+        <section class="reveal">
+          <div id="fall-list"></div>
+        </section>
+      </div>
     </div>
 
     <!-- MERCH -->
     <div class="page" data-page="merch">
-      <section style="max-width:1020px;margin:0 auto;padding:64px 24px 28px;text-align:center">
-        <span style="display:inline-block;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:16px">Shop</span>
-        <h1 style="font-family:var(--font-body);font-weight:700;font-size:clamp(2.4rem,5vw,3.6rem);margin:0 0 16px;color:var(--c-primary)">Club merch</h1>
-        <p style="font-size:17px;color:var(--c-secondary);max-width:56ch;margin:0 auto">Stickers, tees, and pins designed by members. <span style="font-style:italic;color:var(--c-muted-3)">Products &amp; prices are placeholders.</span></p>
-      </section>
-      <section class="reveal" style="max-width:1100px;margin:0 auto;padding:24px 24px 12px">
-        <div id="merch-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px"></div>
-      </section>
-      <section class="reveal" style="max-width:760px;margin:0 auto;padding:30px 24px 64px">
-        <div style="background:var(--bg-card);border-radius:20px;padding:30px;box-shadow:var(--shadow-card);position:relative;overflow:hidden">
-          <span style="position:absolute;top:0;left:0;right:0;height:5px;background:var(--holo)"></span>
-          <h2 style="font-family:var(--font-body);font-weight:600;font-size:24px;margin:0 0 16px;color:var(--c-primary)">How to buy</h2>
-          <div style="display:grid;gap:14px">
-            <div style="display:flex;gap:14px;align-items:flex-start"><span style="flex:none;width:30px;height:30px;border-radius:50%;background:var(--g-pink);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--font-body);color:var(--c-primary)">1</span><p style="margin:0;font-size:14px;color:var(--c-secondary)"><strong style="color:var(--c-primary)">DM us on Instagram</strong> <a href="https://www.instagram.com/animation_at_ucsd/" target="_blank" rel="noopener">@animation_at_ucsd</a> with what you want. Lorem ipsum dolor sit amet.</p></div>
-            <div style="display:flex;gap:14px;align-items:flex-start"><span style="flex:none;width:30px;height:30px;border-radius:50%;background:var(--g-blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--font-body);color:var(--c-primary)">2</span><p style="margin:0;font-size:14px;color:var(--c-secondary)"><strong style="color:var(--c-primary)">Catch us tabling</strong> on Library Walk during the quarter. Consectetur adipiscing elit placeholder.</p></div>
-            <div style="display:flex;gap:14px;align-items:flex-start"><span style="flex:none;width:30px;height:30px;border-radius:50%;background:var(--g-lav);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--font-body);color:var(--c-primary)">3</span><p style="margin:0;font-size:14px;color:var(--c-secondary)"><strong style="color:var(--c-primary)">Pick up at a meeting</strong> and pay by cash or Venmo. Sed do eiusmod tempor placeholder.</p></div>
-          </div>
+      <div class="masthead">
+        <img class="page-arch" src="assets/frame/arch-merch.webp" alt="" aria-hidden="true">
+        <div class="masthead-title">
+          <span class="eyebrow" id="merch-eyebrow"></span>
+          <h1 class="page-title" id="merch-title"></h1>
+          <p class="masthead-note" id="merch-note"></p>
         </div>
+      </div>
+      <div class="page-body">
+        <section class="reveal">
+          <div id="merch-grid"></div>
+        </section>
+        <section class="reveal order-section" id="order-section">
+          <div class="order-card">
+            <div id="order-sent" style="display:none;text-align:center;padding:30px 10px">
+              <div style="font-size:46px;margin-bottom:10px">✨</div>
+              <div class="order-sent-title" id="order-sent-title"></div>
+              <p class="order-sent-body" id="order-sent-body"></p>
+              <button onclick="window.__resetOrderForm()" class="btn-primary" style="font-size:15px;padding:11px 22px">Start another</button>
+            </div>
+            <div id="order-form-wrap">
+              <h2 class="order-title" id="order-form-title"></h2>
+              <p class="order-blurb" id="order-form-blurb"></p>
+              <div id="order-items" class="order-items"></div>
+              <form onsubmit="window.__submitOrder(event)">
+                <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+                <div class="order-fields">
+                  <div>
+                    <label class="field-label" for="order-name">Name</label>
+                    <input class="input-field" id="order-name" name="name" placeholder="Your name" required>
+                  </div>
+                  <div>
+                    <label class="field-label" for="order-email">Email</label>
+                    <input class="input-field" id="order-email" name="email" type="email" placeholder="you@ucsd.edu" required>
+                  </div>
+                </div>
+                <div style="margin-bottom:18px">
+                  <label class="field-label" for="order-notes">Notes</label>
+                  <textarea class="input-field" id="order-notes" name="notes" rows="3" placeholder="Anything else we should know?" style="resize:vertical"></textarea>
+                </div>
+                <div id="order-error" class="order-error" style="display:none"></div>
+                <button type="submit" class="btn-primary" id="order-submit" style="width:100%;justify-content:center">Send order request ✦</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- HIDDEN PAGES — kept for later, not linked in the nav.
+         Re-enable by moving their entry from HIDDEN_PAGES to PAGES in
+         content/config.js and giving them real content. -->
+
+    <!-- HISTORY (hidden) -->
+    <div class="page" data-page="history">
+      <section style="max-width:1020px;margin:0 auto;padding:64px 24px 28px;text-align:center">
+        <span class="eyebrow">Our Story</span>
+        <h1 class="page-title">History &amp; founding</h1>
+        <p style="font-style:italic;color:var(--c-muted-3)">Placeholder — officers to supply history.</p>
       </section>
     </div>
 
-    <!-- CONTACT -->
+    <!-- OFFICERS (hidden) -->
+    <div class="page" data-page="officers">
+      <section style="max-width:1020px;margin:0 auto;padding:64px 24px 28px;text-align:center">
+        <span class="eyebrow">The Team</span>
+        <h1 class="page-title">Meet the officers</h1>
+        <p style="font-style:italic;color:var(--c-muted-3)">Placeholder — waiting on officer submissions.</p>
+      </section>
+    </div>
+
+    <!-- CONTACT (hidden) -->
     <div class="page" data-page="contact">
       <section style="max-width:1020px;margin:0 auto;padding:64px 24px 28px;text-align:center">
-        <span style="display:inline-block;font:600 11px/1 var(--font-mono);letter-spacing:.22em;text-transform:uppercase;color:var(--c-muted);margin-bottom:16px">Say Hi</span>
-        <h1 style="font-family:var(--font-body);font-weight:700;font-size:clamp(2.4rem,5vw,3.6rem);margin:0 0 16px;color:var(--c-primary)">Contact &amp; feedback</h1>
-        <p style="font-size:17px;color:var(--c-secondary);max-width:56ch;margin:0 auto">Got an idea, a question, or want to collab? Drop us a line.</p>
-      </section>
-      <section class="reveal contact-grid" style="max-width:1080px;margin:0 auto;padding:24px 24px 64px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start">
-        <div style="background:var(--bg-card);border-radius:20px;padding:30px;box-shadow:var(--shadow-elevated);position:relative;overflow:hidden">
-          <span style="position:absolute;top:0;left:0;right:0;height:5px;background:var(--holo)"></span>
-          <div id="contact-sent" style="display:none;text-align:center;padding:30px 10px">
-            <div style="font-size:46px;margin-bottom:10px">✨</div>
-            <div style="font-family:var(--font-body);font-weight:600;font-size:22px;color:var(--c-primary);margin-bottom:8px">Thanks, message sent!</div>
-            <p style="font-size:14px;color:var(--c-secondary);margin:0 0 18px">This is a prototype — nothing was actually sent. Lorem ipsum placeholder.</p>
-            <button onclick="window.__resetForm()" class="btn-primary" style="font-size:14px;padding:11px 22px">Send another</button>
-          </div>
-          <div id="contact-form">
-            <form onsubmit="window.__submitForm(event)">
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
-                <div>
-                  <label style="display:block;font:600 11px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--c-primary);margin-bottom:7px">Name</label>
-                  <input class="input-field" placeholder="Your name">
-                </div>
-                <div>
-                  <label style="display:block;font:600 11px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--c-primary);margin-bottom:7px">Email</label>
-                  <input class="input-field" placeholder="you@ucsd.edu">
-                </div>
-              </div>
-              <div style="margin-bottom:14px">
-                <label style="display:block;font:600 11px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--c-primary);margin-bottom:7px">This is about…</label>
-                <select class="input-field">
-                  <option>Feedback</option>
-                  <option>Joining the club</option>
-                  <option>Event idea</option>
-                  <option>Collab / commission</option>
-                  <option>Something else</option>
-                </select>
-              </div>
-              <div style="margin-bottom:18px">
-                <label style="display:block;font:600 11px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--c-primary);margin-bottom:7px">Message</label>
-                <textarea class="input-field" rows="5" placeholder="Tell us what's on your mind…" style="resize:vertical"></textarea>
-              </div>
-              <button type="submit" class="btn-primary" style="width:100%;justify-content:center">Send message ✦</button>
-            </form>
-          </div>
-        </div>
-        <div style="display:grid;gap:16px">
-          <a href="https://www.instagram.com/animation_at_ucsd/" target="_blank" rel="noopener" style="background:var(--bg-card);border-radius:var(--radius-card);padding:22px;box-shadow:var(--shadow-card);display:block;text-decoration:none" class="card-hover-sm">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-              <span style="width:42px;height:42px;border-radius:12px;background:var(--holo);display:flex;align-items:center;justify-content:center;color:var(--c-primary)"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2c-2.7 0-3.05.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.25-1.22.6-1.77 1.16-.56.55-.9 1.1-1.16 1.77-.25.64-.42 1.37-.47 2.43C2.01 8.95 2 9.3 2 12s.01 3.05.06 4.12c.05 1.06.22 1.79.47 2.43.25.66.6 1.22 1.16 1.77.55.56 1.1.9 1.77 1.16.64.25 1.37.42 2.43.47C8.95 21.99 9.3 22 12 22s3.05-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.16c.56-.55.9-1.1 1.16-1.77.25-.64.42-1.37.47-2.43.05-1.07.06-1.42.06-4.12s-.01-3.05-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.16-1.77 4.9 4.9 0 0 0-1.77-1.16c-.64-.25-1.37-.42-2.43-.47C15.05 2.01 14.7 2 12 2Zm0 1.8c2.65 0 2.96.01 4.01.06.97.04 1.5.21 1.85.34.46.18.8.4 1.15.74.34.35.56.69.74 1.15.13.35.3.88.34 1.85.05 1.05.06 1.36.06 4.01s-.01 2.96-.06 4.01c-.04.97-.21 1.5-.34 1.85-.18.46-.4.8-.74 1.15-.35.34-.69.56-1.15.74-.35.13-.88.3-1.85.34-1.05.05-1.36.06-4.01.06s-2.96-.01-4.01-.06c-.97-.04-1.5-.21-1.85-.34a3.1 3.1 0 0 1-1.15-.74 3.1 3.1 0 0 1-.74-1.15c-.13-.35-.3-.88-.34-1.85-.05-1.05-.06-1.36-.06-4.01s.01-2.96.06-4.01c.04-.97.21-1.5.34-1.85.18-.46.4-.8.74-1.15.35-.34.69-.56 1.15-.74.35-.13.88-.3 1.85-.34C9.04 3.81 9.35 3.8 12 3.8Zm0 3.06A5.14 5.14 0 1 0 12 17.14 5.14 5.14 0 0 0 12 6.86Zm0 8.47A3.33 3.33 0 1 1 12 8.67a3.33 3.33 0 0 1 0 6.66Zm5.34-8.67a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"></path></svg></span>
-              <div><div style="font-family:var(--font-body);font-weight:600;color:var(--c-primary)">Instagram</div><div style="font:600 11px/1 var(--font-mono);color:var(--c-muted-2);margin-top:3px">@animation_at_ucsd</div></div>
-            </div>
-            <p style="font-size:13px;color:var(--c-secondary);margin:0">Placeholder text</p>
-          </a>
-          <div style="background:var(--bg-card);border-radius:var(--radius-card);padding:22px;box-shadow:var(--shadow-card)">
-            <div style="font-family:var(--font-body);font-weight:600;color:var(--c-primary);margin-bottom:6px">Email (placeholder)</div>
-            <div style="font:600 12px/1 var(--font-mono);color:var(--c-accent-2)">animationclub@placeholder.ucsd.edu</div>
-            <p style="font-size:13px;color:var(--c-secondary);margin:12px 0 0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-          <div style="background:var(--holo);border-radius:var(--radius-card);padding:22px">
-            <div style="font-family:var(--font-body);font-weight:600;color:var(--c-primary);margin-bottom:6px">Anonymous feedback</div>
-            <p style="font-size:13px;color:var(--c-secondary-dark);margin:0">Prefer to stay anonymous? Placeholder note</p>
-          </div>
-        </div>
+        <span class="eyebrow">Say Hi</span>
+        <h1 class="page-title">Contact</h1>
+        <p style="font-style:italic;color:var(--c-muted-3)">Placeholder — reach us on Instagram for now.</p>
       </section>
     </div>
   </main>
 
   <!-- FOOTER -->
-  <footer style="position:relative;z-index:1;margin-top:30px;border-top:var(--border-section);background:var(--bg-footer)">
-    <div style="height:var(--nav-accent-height);background:var(--holo)"></div>
-    <div style="max-width:1240px;margin:0 auto;padding:38px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:13px">
-        <img src="assets/animation-club-logo.jpg" alt="logo" style="width:42px;height:42px;border-radius:12px;object-fit:cover">
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/animation-club-logo.jpg" alt="logo" class="footer-logo">
         <div>
-          <div style="font-family:var(--font-logo);font-weight:400;color:var(--c-primary);font-size:18px">Animation Club</div>
-          <div style="font:600 10px/1 var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--c-muted);margin-top:3px">UC San Diego</div>
+          <div class="footer-name">Animation Club</div>
+          <div class="footer-sub">UC San Diego</div>
         </div>
       </div>
-      <div style="display:flex;gap:12px">
-        <a href="https://www.instagram.com/animation_at_ucsd/" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social-link" style="width:44px;height:44px;border-radius:50%;background:var(--bg-card);box-shadow:var(--shadow-card);display:flex;align-items:center;justify-content:center;color:var(--c-primary);transition:background .2s,transform .2s" onmouseover="this.style.background='var(--holo)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='var(--bg-card)';this.style.transform='none'"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2c-2.7 0-3.05.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.25-1.22.6-1.77 1.16-.56.55-.9 1.1-1.16 1.77-.25.64-.42 1.37-.47 2.43C2.01 8.95 2 9.3 2 12s.01 3.05.06 4.12c.05 1.06.22 1.79.47 2.43.25.66.6 1.22 1.16 1.77.55.56 1.1.9 1.77 1.16.64.25 1.37.42 2.43.47C8.95 21.99 9.3 22 12 22s3.05-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.16c.56-.55.9-1.1 1.16-1.77.25-.64.42-1.37.47-2.43.05-1.07.06-1.42.06-4.12s-.01-3.05-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.16-1.77 4.9 4.9 0 0 0-1.77-1.16c-.64-.25-1.37-.42-2.43-.47C15.05 2.01 14.7 2 12 2Zm0 1.8c2.65 0 2.96.01 4.01.06.97.04 1.5.21 1.85.34.46.18.8.4 1.15.74.34.35.56.69.74 1.15.13.35.3.88.34 1.85.05 1.05.06 1.36.06 4.01s-.01 2.96-.06 4.01c-.04.97-.21 1.5-.34 1.85-.18.46-.4.8-.74 1.15-.35.34-.69.56-1.15.74-.35.13-.88.3-1.85.34-1.05.05-1.36.06-4.01.06s-2.96-.01-4.01-.06c-.97-.04-1.5-.21-1.85-.34a3.1 3.1 0 0 1-1.15-.74 3.1 3.1 0 0 1-.74-1.15c-.13-.35-.3-.88-.34-1.85-.05-1.05-.06-1.36-.06-4.01s.01-2.96.06-4.01c.04-.97.21-1.5.34-1.85.18-.46.4-.8.74-1.15.35-.34.69-.56 1.15-.74.35-.13.88-.3 1.85-.34C9.04 3.81 9.35 3.8 12 3.8Zm0 3.06A5.14 5.14 0 1 0 12 17.14 5.14 5.14 0 0 0 12 6.86Zm0 8.47A3.33 3.33 0 1 1 12 8.67a3.33 3.33 0 0 1 0 6.66Zm5.34-8.67a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"></path></svg></a>
-        <a href="#" onclick="window.__go('contact');return false" aria-label="Email" class="footer-social-link" style="width:44px;height:44px;border-radius:50%;background:var(--bg-card);box-shadow:var(--shadow-card);display:flex;align-items:center;justify-content:center;color:var(--c-primary);transition:background .2s,transform .2s" onmouseover="this.style.background='var(--holo)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='var(--bg-card)';this.style.transform='none'"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg></a>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/animation_at_ucsd/" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social-link">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2c-2.7 0-3.05.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.25-1.22.6-1.77 1.16-.56.55-.9 1.1-1.16 1.77-.25.64-.42 1.37-.47 2.43C2.01 8.95 2 9.3 2 12s.01 3.05.06 4.12c.05 1.06.22 1.79.47 2.43.25.66.6 1.22 1.16 1.77.55.56 1.1.9 1.77 1.16.64.25 1.37.42 2.43.47C8.95 21.99 9.3 22 12 22s3.05-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.16c.56-.55.9-1.1 1.16-1.77.25-.64.42-1.37.47-2.43.05-1.07.06-1.42.06-4.12s-.01-3.05-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.16-1.77 4.9 4.9 0 0 0-1.77-1.16c-.64-.25-1.37-.42-2.43-.47C15.05 2.01 14.7 2 12 2Zm0 1.8c2.65 0 2.96.01 4.01.06.97.04 1.5.21 1.85.34.46.18.8.4 1.15.74.34.35.56.69.74 1.15.13.35.3.88.34 1.85.05 1.05.06 1.36.06 4.01s-.01 2.96-.06 4.01c-.04.97-.21 1.5-.34 1.85-.18.46-.4.8-.74 1.15-.35.34-.69.56-1.15.74-.35.13-.88.3-1.85.34-1.05.05-1.36.06-4.01.06s-2.96-.01-4.01-.06c-.97-.04-1.5-.21-1.85-.34a3.1 3.1 0 0 1-1.15-.74 3.1 3.1 0 0 1-.74-1.15c-.13-.35-.3-.88-.34-1.85-.05-1.05-.06-1.36-.06-4.01s.01-2.96.06-4.01c.04-.97.21-1.5.34-1.85.18-.46.4-.8.74-1.15.35-.34.69-.56 1.15-.74.35-.13.88-.3 1.85-.34C9.04 3.81 9.35 3.8 12 3.8Zm0 3.06A5.14 5.14 0 1 0 12 17.14 5.14 5.14 0 0 0 12 6.86Zm0 8.47A3.33 3.33 0 1 1 12 8.67a3.33 3.33 0 0 1 0 6.66Zm5.34-8.67a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"></path></svg>
+        </a>
       </div>
     </div>
-    <div style="max-width:1240px;margin:0 auto;padding:0 24px 30px;font-size:12px;color:var(--c-muted-3);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-      <span>Made with <span style="color:var(--c-accent)">♥</span> by club members · prototype with placeholder content</span>
-      <span style="font-family:var(--font-mono)">Animation Club · UC San Diego</span>
+    <div class="footer-meta">
+      <span id="footer-line"></span>
+      <span class="footer-tag" id="footer-tag"></span>
     </div>
   </footer>
 
   <!-- LIGHTBOX -->
   <div id="lightbox" class="lightbox-overlay" onclick="window.__closeLB()">
-    <div onclick="event.stopPropagation()" style="max-width:760px;width:100%;background:var(--bg-card);border-radius:var(--radius-card-lg);overflow:hidden;box-shadow:0 30px 80px rgba(30,58,95,.4)">
-      <div id="lb-bg" style="position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center">
-        <span style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(30,58,95,.25)"><span style="margin-left:5px;border-left:22px solid var(--c-primary);border-top:13px solid transparent;border-bottom:13px solid transparent"></span></span>
-        <button onclick="window.__closeLB()" style="position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:18px;color:var(--c-primary);display:flex;align-items:center;justify-content:center">✕</button>
-        <span style="position:absolute;bottom:14px;left:16px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.85);font:600 10px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--c-primary)">placeholder media</span>
+    <div class="lightbox-card" onclick="event.stopPropagation()">
+      <div id="lb-bg" class="lightbox-media">
+        <img id="lb-img" alt="" style="display:none">
+        <button onclick="window.__closeLB()" class="lightbox-close" aria-label="Close">✕</button>
       </div>
-      <div style="padding:24px 28px 28px">
-        <div id="lb-title" style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--c-primary)"></div>
-        <div id="lb-meta" style="font:600 12px/1 var(--font-mono);color:var(--c-muted-2);margin:6px 0 12px"></div>
-        <p style="font-size:15px;color:var(--c-secondary);margin:0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. This is a placeholder preview — real artwork, films, and credits would live here.</p>
+      <div class="lightbox-caption">
+        <div id="lb-title" class="lightbox-title"></div>
+        <div id="lb-meta" class="lightbox-meta"></div>
       </div>
     </div>
   </div>
 </div>
 
+<script src="content/config.js"></script>
+<script src="content/site.js"></script>
+<script src="content/events.js"></script>
+<script src="content/merch.js"></script>
 <script src="data.js"></script>
 <script src="renderers.js"></script>
 <script src="app.js"></script>
+<script src="order.js"></script>
 <script src="theme-switcher.js"></script>
 <script src="oneko.plugin.js"></script>
 </body>

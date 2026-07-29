@@ -71,6 +71,7 @@
   --border-section: 2px dashed rgba(232,70,106,.15);
   --border-input: 2px dashed rgba(232,120,138,.3);
   --nav-accent-height: 6px;
+  --root-bg: linear-gradient(180deg,var(--bg-page) 0%,var(--bg-page-end) 60%);
 
   /* Decorative */
   --body-pattern:
@@ -91,7 +92,7 @@
 }
 
 /* Gingham pattern on nav */
-[data-theme="scrapbook"] #root > div:first-child + div {
+[data-theme="scrapbook"] .site-nav {
   background-image:
     repeating-linear-gradient(
       0deg,
@@ -110,7 +111,7 @@
 }
 
 /* Scalloped border on nav bottom using radial gradient */
-[data-theme="scrapbook"] #root > div:nth-child(2)::after {
+[data-theme="scrapbook"] .site-nav::after {
   content: '';
   position: absolute;
   bottom: -8px;
@@ -174,7 +175,7 @@
 }
 
 /* Tape strip on hero image */
-[data-theme="scrapbook"] .hero-grid > div:last-child > div:last-child::before {
+[data-theme="scrapbook"] .hero-frame-bonnie::before {
   content: '';
   position: absolute;
   top: -10px;
@@ -198,13 +199,6 @@
   padding: 8px 0;
   overflow: hidden;
   white-space: nowrap;
-}
-
-/* Timeline dots become hearts */
-[data-theme="scrapbook"] #timeline-list {
-  border-left-style: dashed !important;
-  border-image: none !important;
-  border-left-color: rgba(232,120,138,.4) !important;
 }
 
 /* Theme switcher adapts */
