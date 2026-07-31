@@ -20,12 +20,17 @@ window.AC = window.AC || {};
   var accents = [G.blue, G.pink, G.mint, G.lav, G.gold, G.coral];
   function accent(i) { return accents[i % accents.length]; }
 
+  // Solid companions to the accent gradients (their first stops) — for
+  // coloring glyphs/decoration where a gradient can't be used.
+  var tints = ['#7FA8C9', '#E8A0A8', '#9BB88A', '#B49BD1', '#D9B36A', '#DE9578'];
+  function tint(i) { return tints[i % tints.length]; }
+
   var DATA = {
     config: C.config,
     site: C.site,
 
     navCards: C.site.navCards.map(function(nc, i) {
-      return Object.assign({ bg: accent(i) }, nc);
+      return Object.assign({ bg: accent(i), tint: tint(i) }, nc);
     }),
 
     past: C.events.past.map(function(cat, i) {

@@ -40,11 +40,12 @@ window.AC = window.AC || {};
 
   function renderNavCards() {
     return DATA.navCards.map(function(nc) {
-      return '<button onclick="window.__go(\'' + nc.key + '\')" style="position:relative;text-align:left;background:' + BC + ';border:none;border-radius:' + RC + ';padding:24px 22px;cursor:pointer;overflow:hidden;box-shadow:' + SC + '" class="card-hover-sm">'
-        + '<span style="position:absolute;top:0;left:0;right:0;height:5px;background:' + nc.bg + '"></span>'
+      return '<button onclick="window.__go(\'' + nc.key + '\')" style="position:relative;text-align:left;background:' + BC + ';border:none;border-radius:' + RC + ';padding:24px 22px;cursor:pointer;overflow:hidden;box-shadow:' + SC + ';--nc-tint:' + nc.tint + '" class="card-hover-sm nav-card">'
+        + '<span class="nav-card-strip" style="position:absolute;top:0;left:0;right:0;background:' + nc.bg + '"></span>'
+        + '<span class="nav-card-tinsel" style="position:absolute;left:0;right:0;bottom:0"></span>'
         + '<div style="font-family:' + FD + ';font-weight:600;font-size:20px;color:' + CP + ';margin:6px 0">' + esc(nc.title) + '</div>'
         + '<div style="font-size:15px;color:' + CS + ';line-height:1.5">' + esc(nc.desc) + '</div>'
-        + '<div style="margin-top:14px;font:600 11px/1 ' + FM + ';letter-spacing:.12em;text-transform:uppercase;color:' + CA2 + '">' + esc(nc.label) + ' →</div>'
+        + '<div style="margin-top:14px;font:600 11px/1 ' + FM + ';letter-spacing:.12em;text-transform:uppercase;color:' + CA2 + '">' + esc(nc.label) + ' <span class="nav-card-arrow">→</span></div>'
         + '</button>';
     }).join('');
   }
