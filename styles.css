@@ -188,6 +188,7 @@ button{font-family:inherit}
 .hero-frame-bonnie{position:absolute;left:56.98%;top:43.12%;width:26.21%;height:46.1%;display:flex;align-items:flex-end;justify-content:center;padding:1.3%;animation:heroIn .9s cubic-bezier(.16,1,.3,1) .35s backwards}
 .hero-frame-wordmark img,
 .hero-frame-bonnie img{max-width:100%;max-height:100%;object-fit:contain}
+.hero-frame-wordmark img{transform:scale(1.25)}
 .hero-frame-bonnie img{transform:scale(1.18)}
 
 /* Welcome line under the wordmark frame (VP request); flows below the arch on mobile.
@@ -195,7 +196,8 @@ button{font-family:inherit}
 .hero-welcome{position:absolute;left:14.4%;top:74.5%;width:36.3%;margin:0;text-align:center;font-size:clamp(11px,1.35vw,17.5px);line-height:1.5;color:var(--c-on-dark);text-shadow:0 1px 10px rgba(43,32,64,.4)}
 
 /* Other pages: title inside the arch */
-.masthead-title{position:absolute;left:16%;right:16%;top:40%;text-align:center;font-size:16px}
+.masthead-title{position:absolute;left:16%;right:16%;top:28%;text-align:center;font-size:16px}
+.masthead-gif{display:block;max-width:clamp(180px,38vw,420px);height:auto;margin:0 auto 8px}
 .masthead-title .eyebrow{color:rgba(255,249,238,.9)}
 .page-title{margin:10px 0 0;font-family:var(--font-display);font-weight:700;font-size:clamp(1.9rem,4.8vw,3.4rem);line-height:1.05;color:var(--c-on-dark);text-shadow:0 2px 16px rgba(43,32,64,.4)}
 [data-theme="storybook"] .page-title{font-family:var(--font-title);font-weight:400;letter-spacing:.02em}
@@ -407,6 +409,7 @@ body,
 :root:not([data-theme="storybook"]) .masthead-title .eyebrow{color:var(--c-muted)}
 :root:not([data-theme="storybook"]) .page-title{color:var(--c-primary);text-shadow:none}
 :root:not([data-theme="storybook"]) .masthead-note{color:var(--c-secondary)}
+:root:not([data-theme="storybook"]) .masthead-gif{max-width:min(320px,60vw)}
 :root:not([data-theme="storybook"]) .page-body{background-image:none;padding:16px 24px 64px}
 :root:not([data-theme="storybook"]) .home-welcome{color:var(--c-secondary);text-shadow:none;font-size:19px}
 :root:not([data-theme="storybook"]) .merch-group-title{color:var(--c-primary);text-shadow:none}
@@ -428,7 +431,7 @@ body,
 }
 @media (max-width:560px){
   .order-fields{grid-template-columns:1fr}
-  .masthead-title{top:38%}
+  .masthead-title{top:26%}
   .masthead-note{font-size:12px;margin-top:6px}
   .home-welcome{font-size:18px}
 }
